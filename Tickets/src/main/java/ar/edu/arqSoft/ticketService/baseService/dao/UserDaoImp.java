@@ -7,6 +7,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
+
+import ar.edu.arqSoft.ticketService.baseService.model.User;
 import ar.edu.arqSoft.ticketService.common.dao.*;
 
 @Repository 
