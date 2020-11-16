@@ -8,7 +8,6 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import ar.edu.arqSoft.ticketService.baseService.dao.*;
 import ar.edu.arqSoft.ticketService.baseService.model.Proyect;
 import ar.edu.arqSoft.ticketService.common.dao.GenericDaoImp;
 
