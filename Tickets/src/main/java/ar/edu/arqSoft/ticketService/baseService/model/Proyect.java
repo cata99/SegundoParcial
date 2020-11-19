@@ -3,8 +3,19 @@ package ar.edu.arqSoft.ticketService.baseService.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import ar.edu.arqSoft.ticketService.common.model.GenericObject;
 
@@ -12,20 +23,34 @@ import ar.edu.arqSoft.ticketService.common.model.GenericObject;
 @Table(name="PROYECT")
 public class Proyect extends GenericObject{
 	
+	@NotNull
+	@Size(min=1, max=250)
+	@Column (name="NAME")
 	private String name;
 	
+	@NotNull
+	@Size(min=1, max=250)
+	@Column (name="DESCRPTION")
 	private String description;
 	
+	@Column(name="START_DATE")
 	private Date startDate;
 	
+	@Column(name = "END_DATE")
 	private Date finishDate;
 	
+	@Enumerated(value = EnumType.ORDINAL)
+	@Column(name = "STATE_PROYECT")
 	private StateProyect state;
 	
+	@OneToOne(cascade=CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private User owner;
 	
+	@ManyToMany(mappedBy = "users")
 	private Set<User> users;
 	
+	@OneToMany (targetEntity=User.class, mappedBy="TASK", fetch = FetchType.LAZY)
 	private Set<Task>  tasks;
 
 	public String getName() {

@@ -1,13 +1,12 @@
 package ar.edu.arqSoft.ticketService.baseService.dto;
 
 import java.util.Date;
-
 import ar.edu.arqSoft.ticketService.baseService.model.StateProyect;
 import ar.edu.arqSoft.ticketService.common.dto.*;
 
 public class ProyectRequestDto implements DtoEntity{
 	
-private String name;
+	private String name;
 	
 	private String description;
 	

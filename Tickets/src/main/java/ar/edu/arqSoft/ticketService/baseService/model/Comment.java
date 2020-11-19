@@ -1,20 +1,35 @@
 package ar.edu.arqSoft.ticketService.baseService.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import ar.edu.arqSoft.ticketService.common.model.GenericObject;
+
 
 @Entity
 @Table(name="COMMENT")
 public class Comment extends GenericObject{
 	
+	@NotNull
+	@Size(min=1, max=250)
+	@Column (name="DESCRIPTION")
 	private String description;
 	
+	@Column(name="STATE_COMMENT") //VER
 	private Boolean state;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="COMMENT_ID")
 	private Task task;
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="COMMENT_ID")
 	private User user;
 
 	public Task getTask() {
