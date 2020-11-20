@@ -1,5 +1,8 @@
 package ar.edu.arqSoft.ticketService.baseService.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +13,7 @@ import ar.edu.arqSoft.ticketService.baseService.dao.UserDao;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.Task;
+import ar.edu.arqSoft.ticketService.common.dto.*;
 
 @Service
 @Transactional
@@ -42,7 +46,15 @@ public class TaskService{
 		response.setOwner(task.getOwner());
 		
 		return response;	
+			
+	}
+	public List<TaskResponseDto> GetByName(String name) {
+		List<Task> Tasks = taskDao.FindByName(name);
 		
-		
+		List<TaskResponseDto> response = new ArrayList<TaskResponseDto>();
+		for(Task Task: Tasks) {
+		response.add((TaskResponseDto) new ModelDtoConverter().convertToDto(Task,new TaskResponseDto()));
+		}
+		return response;
 	}
 }

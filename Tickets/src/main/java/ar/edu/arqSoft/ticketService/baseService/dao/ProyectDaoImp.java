@@ -23,4 +23,7 @@ public class ProyectDaoImp extends GenericDaoImp<Proyect, Long > implements Proy
         criteria.select(entity).where(builder.equal(entity.get("name"), nombre));
         return em.createQuery(criteria).getResultList();
 	}
+	
+	
 }
+
