@@ -28,13 +28,6 @@ public class StateDaoTest{
 	@Test
 	public void testRegister() {
 
-		logger.info("Test de Registro de state 1");
-		State state = new State();
 		
-		
-	
-		stateDao.insert(state);
-		Assert.assertNotNull(state.getId());
-		return;
 	}
 }
