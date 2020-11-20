@@ -1,5 +1,8 @@
 package ar.edu.arqSoft.ticketService.baseService.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,7 +11,10 @@ import ar.edu.arqSoft.ticketService.baseService.dao.CommentDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.TaskDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.UserDao;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentResponseDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.UserResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.Comment;
+import ar.edu.arqSoft.ticketService.baseService.model.User;
+import ar.edu.arqSoft.ticketService.common.dto.ModelDtoConverter;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentRequestDto;
 
 
@@ -45,4 +51,5 @@ public class CommentService{
 		
 	}
 	
+
 }
