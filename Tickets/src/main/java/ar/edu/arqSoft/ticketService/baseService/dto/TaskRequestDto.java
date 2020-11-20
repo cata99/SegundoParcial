@@ -4,6 +4,8 @@ import ar.edu.arqSoft.ticketService.common.dto.*;
 
 public class TaskRequestDto implements DtoEntity{
 	
+	private Long id;
+	
 	private Long idState;
 	
 	private Long idUser;
@@ -17,6 +19,14 @@ public class TaskRequestDto implements DtoEntity{
 	private Long idOwner;
 	
 	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Long getIdOwner() {
 		return idOwner;
