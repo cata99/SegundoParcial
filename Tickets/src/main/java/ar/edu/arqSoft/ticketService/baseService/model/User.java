@@ -56,8 +56,8 @@ public class User extends GenericObject{
 		return tasks;
 	}
 
-	public void setTasks(Set<Task> tasks) {
-		this.tasks = tasks;
+	public void setTasks(Task tasks) {
+		this.tasks.add(tasks);
 	}
 
 	public Set<Comment> getComments() {

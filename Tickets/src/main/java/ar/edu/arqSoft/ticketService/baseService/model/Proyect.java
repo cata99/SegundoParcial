@@ -105,16 +105,16 @@ public class Proyect extends GenericObject{
 		return users;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUsers(User users) {
+		this.users.add(users);
 	}
 
 	public Set<Task> getTasks() {
 		return tasks;
 	}
 
-	public void setTasks(Set<Task> tasks) {
-		this.tasks = tasks;
+	public void setTasks(Task tasks) {
+		this.tasks.add(tasks);
 	}
 	
 	
