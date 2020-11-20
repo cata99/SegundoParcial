@@ -105,8 +105,8 @@ public class Proyect extends GenericObject{
 		return users;
 	}
 
-	public void setUsers(Set<User> users) {
-		this.users = users;
+	public void setUsers(User users) {
+		this.users.add(users);
 	}
 
 	public Set<Task> getTasks() {
