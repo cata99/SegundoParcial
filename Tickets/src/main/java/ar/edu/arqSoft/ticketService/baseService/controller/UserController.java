@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.server.ResponseStatusException;
 
 import ar.edu.arqSoft.ticketService.baseService.dto.UserResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.services.UserService;
+import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 
 @Controller
 @RequestMapping("/user")
@@ -32,7 +34,7 @@ public class UserController{
 				return (List<UserResponseDto>) dto;
 			} catch (EntityNotFoundException e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film Not Found", e);
-			} catch (BadRequest) { 
+			} catch (BadRequestException) { 
 				
 			}
 }

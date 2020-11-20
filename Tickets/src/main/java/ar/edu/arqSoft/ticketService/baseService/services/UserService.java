@@ -1,5 +1,8 @@
 package ar.edu.arqSoft.ticketService.baseService.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +59,16 @@ public class UserService{
 		
 		return response;
 		
+	}
+	
+	public List<UserResponseDto> GetByName(String name) {
+		List<User> users = userDao.FindByName(name);
+		
+		List<UserResponseDto> response = new ArrayList<UserResponseDto>();
+		for(User user: users) {
+		response.add((UserResponseDto) new ModelDtoConverter().convertToDto(user,new UserResponseDto()));
+		}
+		return response;
 	}
 	
 }
