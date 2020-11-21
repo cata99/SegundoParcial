@@ -18,8 +18,7 @@ public class TaskResponseDto implements DtoEntity{
 	
 	private Proyect proyect;
 	
-	private User Owner;
-	
+
 	private State state;
 	
 	
@@ -38,14 +37,6 @@ public class TaskResponseDto implements DtoEntity{
 
 	public void setProyect(Proyect proyect) {
 		this.proyect = proyect;
-	}
-
-	public User getOwner() {
-		return Owner;
-	}
-
-	public void setOwner(User owner) {
-		Owner = owner;
 	}
 
 	public String getName() {

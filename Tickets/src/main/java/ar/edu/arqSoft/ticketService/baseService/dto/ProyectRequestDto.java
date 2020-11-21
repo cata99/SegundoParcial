@@ -16,7 +16,6 @@ public class ProyectRequestDto implements DtoEntity{
 	
 	private StateProyect state;
 	
-	private Long idOwner;
 	
 	private Long idUser;
 
@@ -58,14 +57,6 @@ public class ProyectRequestDto implements DtoEntity{
 
 	public void setState(StateProyect state) {
 		this.state = state;
-	}
-
-	public Long getIdOwner() {
-		return idOwner;
-	}
-
-	public void setIdOwner(Long idOwner) {
-		this.idOwner = idOwner;
 	}
 
 	public Long getIdUser() {

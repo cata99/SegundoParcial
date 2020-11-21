@@ -39,7 +39,6 @@ public class TaskService{
 		task.setName(request.getName());
 		task.setDescription(request.getDescription());
 		task.setProyect(proyectDao.load(request.getIdProyect()));
-		task.setOwner(userDao.load(request.getIdOwner()));
 		task.setState(stateDao.load(request.getIdState()));
 		
 		taskDao.insert(task);
@@ -50,7 +49,6 @@ public class TaskService{
 		response.setDescription(task.getDescription());
 		response.setProyect(task.getProyect());
 		response.setState(task.getState());
-		response.setOwner(task.getOwner());
 		
 		return response;	
 			

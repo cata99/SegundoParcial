@@ -14,11 +14,7 @@ public class TaskRequestDto implements DtoEntity{
 	
 	private String name;
 	
-	private String description;
-	
-	private Long idOwner;
-	
-	
+	private String description;	
 
 	public Long getId() {
 		return id;
@@ -26,14 +22,6 @@ public class TaskRequestDto implements DtoEntity{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getIdOwner() {
-		return idOwner;
-	}
-
-	public void setIdOwner(Long idOwner) {
-		this.idOwner = idOwner;
 	}
 
 	public Long getIdState() {

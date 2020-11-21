@@ -43,10 +43,6 @@ public class Proyect extends GenericObject{
 	@Column(name = "STATE_PROYECT")
 	private StateProyect state;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private User owner;
-	
 	@ManyToMany(mappedBy = "users")
 	private Set<User> users;
 	
@@ -91,14 +87,6 @@ public class Proyect extends GenericObject{
 
 	public void setState(StateProyect state) {
 		this.state = state;
-	}
-
-	public User getOwner() {
-		return owner;
-	}
-
-	public void setOwner(User owner) {
-		this.owner = owner;
 	}
 
 	public Set<User> getUsers() {

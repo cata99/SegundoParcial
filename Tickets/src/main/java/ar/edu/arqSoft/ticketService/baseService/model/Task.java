@@ -29,8 +29,6 @@ public class Task extends GenericObject{
 	@Column (name="DESCRIPCION")
 	private String description;
 	
-	private User owner; // ver eso 
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="PROYECT_ID")
 	private Proyect proyect;
@@ -75,14 +73,6 @@ public class Task extends GenericObject{
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public User getOwner() {
-		return owner;
-	}
-
-	public void setOwner(User owner) {
-		this.owner = owner;
 	}
 
 	public Proyect getProyect() {

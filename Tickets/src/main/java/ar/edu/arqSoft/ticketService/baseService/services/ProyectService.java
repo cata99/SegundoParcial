@@ -40,7 +40,6 @@ public class ProyectService{
 		proyect.setDescription(request.getDescription());
 		proyect.setStartDate(request.getStartDate());
 		proyect.setFinishDate(request.getFinishDate());
-		proyect.setOwner(userDao.load(request.getIdUser()));
 		
 		proyectDao.insert(proyect);
 		
@@ -52,7 +51,6 @@ public class ProyectService{
 		response.setDescription(proyect.getDescription());
 		response.setStartDate(proyect.getStartDate());
 		response.setFinishDate(proyect.getFinishDate());
-		response.setOwner(proyect.getOwner());
 		
 		return response; 
 		
