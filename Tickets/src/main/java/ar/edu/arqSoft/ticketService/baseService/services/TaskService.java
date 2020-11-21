@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.arqSoft.ticketService.baseService.dao.ProyectDao;
+import ar.edu.arqSoft.ticketService.baseService.dao.StateDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.TaskDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.UserDao;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
@@ -24,10 +25,12 @@ public class TaskService{
 	
 	@Autowired
 	private TaskDao taskDao;
-	
+	@Autowired
 	private ProyectDao proyectDao;
-	
+	@Autowired
 	private UserDao userDao;
+	@Autowired
+	private StateDao stateDao;
 	
 	public TaskResponseDto insertTask (TaskRequestDto request) throws BadRequestException, EntityNotFoundException{
 		
@@ -37,6 +40,7 @@ public class TaskService{
 		task.setDescription(request.getDescription());
 		task.setProyect(proyectDao.load(request.getIdProyect()));
 		task.setOwner(userDao.load(request.getIdOwner()));
+		task.setState(stateDao.load(request.getIdState()));
 		
 		taskDao.insert(task);
 		
@@ -45,6 +49,7 @@ public class TaskService{
 		response.setName(task.getName());
 		response.setDescription(task.getDescription());
 		response.setProyect(task.getProyect());
+		response.setState(task.getState());
 		response.setOwner(task.getOwner());
 		
 		return response;	

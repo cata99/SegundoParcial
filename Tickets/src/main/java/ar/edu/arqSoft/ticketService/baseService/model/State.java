@@ -21,7 +21,6 @@ public class State extends GenericObject{
 	@Column (name="STATE")
 	private String name;
 	
-	@NotNull
 	@Size(min=1, max=250)
 	@Column (name="DESCRIPTION")
 	private String description;

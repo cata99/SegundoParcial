@@ -19,6 +19,18 @@ public class TaskResponseDto implements DtoEntity{
 	private Proyect proyect;
 	
 	private User Owner;
+	
+	private State state;
+	
+	
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
 
 	public Proyect getProyect() {
 		return proyect;
