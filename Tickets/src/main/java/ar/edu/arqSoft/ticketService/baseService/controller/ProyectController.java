@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import ar.edu.arqSoft.ticketService.baseService.dto.ProyectResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.ProyectRequestDto;
-import ar.edu.arqSoft.ticketService.baseService.dto.ProyectResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.services.ProyectService;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
