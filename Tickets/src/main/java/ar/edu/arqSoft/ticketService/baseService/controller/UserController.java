@@ -39,8 +39,7 @@ public class UserController{
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
 			}
 	}
-			
-			
+	 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
 	public @ResponseBody UserResponseDto register(@RequestBody UserRequestDto request) {

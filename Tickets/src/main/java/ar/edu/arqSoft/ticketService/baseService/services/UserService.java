@@ -14,6 +14,8 @@ import ar.edu.arqSoft.ticketService.baseService.dto.UserRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.UserResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.User;
 import ar.edu.arqSoft.ticketService.common.dto.ModelDtoConverter;
+import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
+import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 
 @Service
 @Transactional
@@ -25,7 +27,7 @@ public class UserService{
 	@Autowired
 	private TaskDao taskDao;
 	
-	public UserResponseDto InsertUser (UserRequestDto request)
+	public UserResponseDto InsertUser (UserRequestDto request) throws EntityNotFoundException, BadRequestException
 	{
 		User user = new User();
 		
@@ -61,11 +63,16 @@ public class UserService{
 		
 	}
 	
-	public List<UserResponseDto> GetByName(String name) {
+	public List<UserResponseDto> GetByName(String name) throws EntityNotFoundException, BadRequestException {
 		List<User> users = userDao.FindByName(name);
 		
 		List<UserResponseDto> response = new ArrayList<UserResponseDto>();
-		for(User user: users) {
+		for(User user: users) 
+		{
+			if(user.getId()<=0)
+			{
+				throw new BadRequestException();
+			}
 		response.add((UserResponseDto) new ModelDtoConverter().convertToDto(user,new UserResponseDto()));
 		}
 		return response;

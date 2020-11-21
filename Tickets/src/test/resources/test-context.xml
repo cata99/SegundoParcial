@@ -11,7 +11,7 @@
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
 		</property>
 		<property name="persistenceXmlLocation" value="classpath*:META-INF/test-persistence.xml"/>
-		<property name="persistenceUnitName" value="ar.edu.arqSoft" />
+		<property name="persistenceUnitName" value="ar.edu.ucc.base" />
 	</bean>
 	
 	<bean id="sharedEntityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">

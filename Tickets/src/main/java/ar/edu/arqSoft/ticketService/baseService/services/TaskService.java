@@ -14,6 +14,8 @@ import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.Task;
 import ar.edu.arqSoft.ticketService.common.dto.*;
+import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
+import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 
 @Service
 @Transactional
@@ -27,7 +29,7 @@ public class TaskService{
 	
 	private UserDao userDao;
 	
-	public TaskResponseDto insertTask (TaskRequestDto request) {
+	public TaskResponseDto insertTask (TaskRequestDto request) throws BadRequestException, EntityNotFoundException{
 		
 		Task task = new Task();
 		
@@ -48,12 +50,16 @@ public class TaskService{
 		return response;	
 			
 	}
-	public List<TaskResponseDto> GetByName(String name) {
-		List<Task> Tasks = taskDao.FindByName(name);
+	public List<TaskResponseDto> GetByName(String name) throws BadRequestException, EntityNotFoundException {
+		List<Task> tasks = taskDao.FindByName(name);
 		
 		List<TaskResponseDto> response = new ArrayList<TaskResponseDto>();
-		for(Task Task: Tasks) {
-		response.add((TaskResponseDto) new ModelDtoConverter().convertToDto(Task,new TaskResponseDto()));
+		for(Task task: tasks) {
+			if (task.getId()<=0)
+			{
+				throw new BadRequestException();
+			}
+		response.add((TaskResponseDto) new ModelDtoConverter().convertToDto(task,new TaskResponseDto()));
 		}
 		return response;
 	}

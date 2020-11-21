@@ -23,7 +23,7 @@ public class CommentDaoTest{
 	
 	@Autowired
 	private CommentDao commentDao;
-	
+
 	@Test
 	public void testRegister() {
 

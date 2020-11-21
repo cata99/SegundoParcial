@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.arqSoft.ticketService.common.dto.ModelDtoConverter;
+import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
+import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 import ar.edu.arqSoft.ticketService.baseService.dao.CommentDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.TaskDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.UserDao;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentResponseDto;
-import ar.edu.arqSoft.ticketService.baseService.dto.UserResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.Comment;
-import ar.edu.arqSoft.ticketService.baseService.model.User;
-import ar.edu.arqSoft.ticketService.common.dto.ModelDtoConverter;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentRequestDto;
 
 
@@ -29,7 +29,7 @@ public class CommentService{
 	
 	private UserDao userDao;
 	
-	public CommentResponseDto insertComment (CommentRequestDto request) {
+	public CommentResponseDto insertComment (CommentRequestDto request) throws EntityNotFoundException, BadRequestException{
 	
 		Comment comment = new Comment();
 		
@@ -50,6 +50,20 @@ public class CommentService{
 		return response;
 		
 	}
+	
+	
+	public List<CommentResponseDto> getAll() throws EntityNotFoundException, BadRequestException{
+		List<Comment> Comments = commentDao.getAll();
+		List<CommentResponseDto> response = new ArrayList<CommentResponseDto>();
+		for (Comment Comment : Comments) {
+			if (Comment.getId() <= 0) {
+				throw new BadRequestException();
+			}
+			response.add((CommentResponseDto) new ModelDtoConverter().convertToDto(Comment, new CommentResponseDto()));
+			}
+		return response;
+	}
+	
 	
 
 }

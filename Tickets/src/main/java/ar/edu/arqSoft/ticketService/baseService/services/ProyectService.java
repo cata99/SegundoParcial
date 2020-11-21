@@ -16,6 +16,8 @@ import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.UserRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.model.Proyect;
 import ar.edu.arqSoft.ticketService.common.dto.*;
+import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
+import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 
 @Service
 @Transactional
@@ -30,7 +32,7 @@ public class ProyectService{
 	@Autowired
 	private TaskDao taskDao;
 	
-	public ProyectResponseDto insertProyect (ProyectRequestDto request) {
+	public ProyectResponseDto insertProyect (ProyectRequestDto request) throws BadRequestException, EntityNotFoundException {
 		
 		Proyect proyect= new Proyect();
 		
@@ -42,6 +44,8 @@ public class ProyectService{
 		
 		proyectDao.insert(proyect);
 		
+		
+	
 		ProyectResponseDto response = new ProyectResponseDto();
 		
 		response.setName(proyect.getName());
@@ -54,7 +58,12 @@ public class ProyectService{
 		
 	}
 	
-	public ProyectResponseDto addUser (UserRequestDto req, Long proyectid) {
+	public ProyectResponseDto addUser (UserRequestDto req, Long proyectid)throws BadRequestException, EntityNotFoundException {
+		if(proyectid<=0)
+		{
+			throw new BadRequestException();
+		}
+	
 		Proyect proyect = proyectDao.load(proyectid);
 		
 		proyect.setUsers(userDao.load(req.getId()));
@@ -67,7 +76,11 @@ public class ProyectService{
 	}
 	
 	
-	public ProyectResponseDto addTask (TaskRequestDto req, Long proyectid) {
+	public ProyectResponseDto addTask (TaskRequestDto req, Long proyectid) throws BadRequestException, EntityNotFoundException{
+		if(proyectid<=0)
+		{
+			throw new BadRequestException();
+		}
 		Proyect proyect = proyectDao.load(proyectid);
 		
 		proyect.setTasks(taskDao.load(req.getId()));
@@ -80,12 +93,16 @@ public class ProyectService{
 	}
 	
 	
-	public List<ProyectResponseDto> GetByName(String name) {
-		List<Proyect> Proyects = proyectDao.FindByName(name);
+	public List<ProyectResponseDto> GetByName(String name) throws BadRequestException, EntityNotFoundException{
+		List<Proyect> proyects = proyectDao.FindByName(name);
 		
 		List<ProyectResponseDto> response = new ArrayList<ProyectResponseDto>();
-		for(Proyect Proyect: Proyects) {
-		response.add((ProyectResponseDto) new ModelDtoConverter().convertToDto(Proyect,new ProyectResponseDto()));
+		for(Proyect proyect: proyects) {
+			if(proyect.getId()<=0)
+			{
+				throw new BadRequestException();
+			}
+		response.add((ProyectResponseDto) new ModelDtoConverter().convertToDto(proyect,new ProyectResponseDto()));
 		}
 		return response;
 	}
