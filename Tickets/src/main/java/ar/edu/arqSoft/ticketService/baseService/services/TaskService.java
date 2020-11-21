@@ -27,8 +27,8 @@ public class TaskService{
 	private TaskDao taskDao;
 	@Autowired
 	private ProyectDao proyectDao;
-	@Autowired
-	private UserDao userDao;
+	//@Autowired
+	//private UserDao userDao;
 	@Autowired
 	private StateDao stateDao;
 	
