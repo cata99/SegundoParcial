@@ -59,6 +59,7 @@ public class ProyectService{
 	}
 	
 	public ProyectResponseDto addUser (UserRequestDto req, Long proyectid)throws BadRequestException, EntityNotFoundException {
+		
 		if(proyectid<=0)
 		{
 			throw new BadRequestException();

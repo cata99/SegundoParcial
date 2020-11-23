@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.arqSoft.ticketService.baseService.dao.StateDao;
-import ar.edu.arqSoft.ticketService.baseService.dto.StateRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.StateResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.State;
 import ar.edu.arqSoft.ticketService.common.dto.ModelDtoConverter;
@@ -20,25 +19,7 @@ import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 public class StateService{
 	
 	@Autowired
-	private StateDao stateDao;
-	
-	public StateResponseDto insertState (StateRequestDto request){
-		
-		State state = new State();
-		
-		state.setName(request.getName());
-		state.setDescription(request.getDescription());
-		
-		stateDao.insert(state);
-		
-		StateResponseDto response = new StateResponseDto();
-		
-		response.setName(state.getName());
-		response.setDescription(state.getDescription());		
-		return response;
-		
-	}
-	
+	private StateDao stateDao;	
 
 	public List<StateResponseDto> getByName(String name) throws EntityNotFoundException, BadRequestException {
 		List<State> states = stateDao.FindByName(name);

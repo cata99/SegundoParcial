@@ -56,7 +56,7 @@ public class ProyectController{
 	
 	@RequestMapping(value="/addTask/{id]}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
-	public @ResponseBody ProyectResponseDto addUser(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
+	public @ResponseBody ProyectResponseDto addTask(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
 			try {
 				ProyectResponseDto dto =(ProyectResponseDto) proyectService.addTask(request, id);		
 				return dto;
