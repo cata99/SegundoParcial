@@ -29,7 +29,7 @@ public class StateController{
 	@ResponseStatus(code= HttpStatus.CREATED)
 	public @ResponseBody List<StateResponseDto> getbyName(@PathVariable("name") String name){
 			try {
-				StateResponseDto dto =(StateResponseDto) stateService.GetByName(name);		
+				StateResponseDto dto =(StateResponseDto) stateService.getByName(name);		
 				return (List<StateResponseDto>) dto;
 			} catch (EntityNotFoundException e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "State Not Found", e);

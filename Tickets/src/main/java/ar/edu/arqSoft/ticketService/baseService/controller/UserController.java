@@ -26,19 +26,7 @@ public class UserController{
 	@Autowired
 	private UserService userService;
 	
-	 @SuppressWarnings("unchecked")
-	 @RequestMapping(value="/{name}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-	 @ResponseStatus(code= HttpStatus.CREATED)
-	 public @ResponseBody List<UserResponseDto> getbyName(@PathVariable("name") String name){
-			try {
-				UserResponseDto dto =(UserResponseDto) userService.GetByName(name);		
-				return (List<UserResponseDto>) dto;
-			} catch (EntityNotFoundException e) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found", e);
-			} catch (BadRequestException e) { 
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-			}
-	}
+	
 	 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
@@ -51,5 +39,19 @@ public class UserController{
 				} catch (BadRequestException e) {
 						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
 				}
+	}
+	 
+	 @SuppressWarnings("unchecked")
+	 @RequestMapping(value="/{name}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	 @ResponseStatus(code= HttpStatus.CREATED)
+	 public @ResponseBody List<UserResponseDto> getbyName(@PathVariable("name") String name){
+			try {
+				UserResponseDto dto =(UserResponseDto) userService.GetByName(name);		
+				return (List<UserResponseDto>) dto;
+			} catch (EntityNotFoundException e) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found", e);
+			} catch (BadRequestException e) { 
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+			}
 	}
 }

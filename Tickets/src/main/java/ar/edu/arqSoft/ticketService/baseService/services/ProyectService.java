@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ar.edu.arqSoft.ticketService.baseService.dao.CommentDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.ProyectDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.TaskDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.UserDao;
@@ -14,7 +15,7 @@ import ar.edu.arqSoft.ticketService.baseService.dto.ProyectRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.ProyectResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.UserRequestDto;
-import ar.edu.arqSoft.ticketService.baseService.model.Proyect;
+import ar.edu.arqSoft.ticketService.baseService.model.*;
 import ar.edu.arqSoft.ticketService.common.dto.*;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
@@ -32,6 +33,9 @@ public class ProyectService{
 	@Autowired
 	private TaskDao taskDao;
 	
+	@Autowired
+	private CommentDao commentDao;
+	
 	public ProyectResponseDto insertProyect (ProyectRequestDto request) throws BadRequestException, EntityNotFoundException {
 		
 		Proyect proyect= new Proyect();
@@ -42,8 +46,6 @@ public class ProyectService{
 		proyect.setFinishDate(request.getFinishDate());
 		
 		proyectDao.insert(proyect);
-		
-		
 	
 		ProyectResponseDto response = new ProyectResponseDto();
 		
@@ -66,6 +68,15 @@ public class ProyectService{
 		
 		proyect.setUsers(userDao.load(req.getId()));
 		
+		Comment comment= new Comment();
+		
+		comment.setDescription("Se agrego un nuevo usuario");
+		comment.setUser(userDao.load(null));
+		comment.setState(true);
+		comment.setTask(null);
+		
+		commentDao.insert(comment);
+		
 		ProyectResponseDto response = new ProyectResponseDto();
 		
 		response = (ProyectResponseDto) new ModelDtoConverter().convertToDto(proyect,new ProyectResponseDto());
@@ -79,9 +90,18 @@ public class ProyectService{
 		{
 			throw new BadRequestException();
 		}
-		Proyect proyect = proyectDao.load(proyectid);
-		
+		Proyect proyect = proyectDao.load(proyectid);		
+	
 		proyect.setTasks(taskDao.load(req.getId()));
+		
+		Comment comment= new Comment();
+		
+		comment.setDescription("Se agrego una nueva tarea al proyecto");
+		comment.setUser(userDao.load(null));
+		comment.setState(true);
+		comment.setTask(taskDao.load(req.getId()));
+		
+		commentDao.insert(comment);
 		
 		ProyectResponseDto response = new ProyectResponseDto();
 		

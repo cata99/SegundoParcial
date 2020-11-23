@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import ar.edu.arqSoft.ticketService.baseService.dto.ProyectResponseDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.UserRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.ProyectRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.services.ProyectService;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
@@ -25,21 +27,6 @@ public class ProyectController{
 
 	@Autowired
 	private ProyectService proyectService;
-	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/{name}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(code= HttpStatus.CREATED)
-	public @ResponseBody List<ProyectResponseDto> getbyName(@PathVariable("name") String name){
-			try {
-				ProyectResponseDto dto =(ProyectResponseDto) proyectService.GetByName(name);		
-				return (List<ProyectResponseDto>) dto;
-			} catch (EntityNotFoundException e) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Proyect Not Found", e);
-			} catch (BadRequestException e) { 
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-			}
-	}
-	
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
@@ -54,4 +41,43 @@ public class ProyectController{
 					}
 	}
 	
+	@RequestMapping(value="/addUser/{id]}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(code= HttpStatus.CREATED)
+	public @ResponseBody ProyectResponseDto addUser(@RequestBody UserRequestDto request, @PathVariable("id") Long id){
+			try {
+				ProyectResponseDto dto =(ProyectResponseDto) proyectService.addUser(request, id);		
+				return dto;
+			} catch (EntityNotFoundException e) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
+			} catch (BadRequestException e) { 
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+			}
+	}
+	
+	@RequestMapping(value="/addTask/{id]}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(code= HttpStatus.CREATED)
+	public @ResponseBody ProyectResponseDto addUser(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
+			try {
+				ProyectResponseDto dto =(ProyectResponseDto) proyectService.addTask(request, id);		
+				return dto;
+			} catch (EntityNotFoundException e) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
+			} catch (BadRequestException e) { 
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+			}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/{name}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(code= HttpStatus.CREATED)
+	public @ResponseBody List<ProyectResponseDto> getbyName(@PathVariable("name") String name){
+			try {
+				ProyectResponseDto dto =(ProyectResponseDto) proyectService.GetByName(name);		
+				return (List<ProyectResponseDto>) dto;
+			} catch (EntityNotFoundException e) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Proyect Not Found", e);
+			} catch (BadRequestException e) { 
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+			}
+	}
 }

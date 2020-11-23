@@ -1,5 +1,7 @@
 package ar.edu.arqSoft.ticketService.baseService.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -10,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
-
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.services.CommentService;
@@ -35,6 +36,20 @@ public class CommentController{
 							throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment Not Found", e);
 					} catch (BadRequestException e) {
 							throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+					}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(code= HttpStatus.CREATED)
+		 public @ResponseBody List<CommentResponseDto> getAll(){
+					try {
+						CommentResponseDto dto = (CommentResponseDto) commentService.getAll();
+						return (List<CommentResponseDto>) dto;
+					} catch (EntityNotFoundException e) {
+						throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film Not Found", e);
+					} catch (BadRequestException e) {
+						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
 					}
 	}
 }

@@ -40,7 +40,7 @@ public class StateService{
 	}
 	
 
-	public List<StateResponseDto> GetByName(String name) throws EntityNotFoundException, BadRequestException {
+	public List<StateResponseDto> getByName(String name) throws EntityNotFoundException, BadRequestException {
 		List<State> states = stateDao.FindByName(name);
 		
 		List<StateResponseDto> response = new ArrayList<StateResponseDto>();

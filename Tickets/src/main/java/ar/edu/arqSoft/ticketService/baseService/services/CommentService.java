@@ -15,6 +15,7 @@ import ar.edu.arqSoft.ticketService.baseService.dao.TaskDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.UserDao;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.Comment;
+import ar.edu.arqSoft.ticketService.baseService.model.Task;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentRequestDto;
 
 
@@ -31,6 +32,14 @@ public class CommentService{
 	
 	public CommentResponseDto insertComment (CommentRequestDto request) throws EntityNotFoundException, BadRequestException{
 	
+		Task task=taskDao.load(request.getIdTask());
+		
+		if (task.getState().getName() == "Finish")
+		{
+			throw new BadRequestException();
+		}
+		
+		
 		Comment comment = new Comment();
 		
 		comment.setDescription(request.getDescription());

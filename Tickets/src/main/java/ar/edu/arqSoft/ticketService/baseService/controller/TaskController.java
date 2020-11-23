@@ -26,21 +26,6 @@ public class TaskController{
 	@Autowired
 	private TaskService taskService;
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/{name}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(code= HttpStatus.CREATED)
-	public @ResponseBody List<TaskResponseDto> getbyName(@PathVariable("name") String name){
-			try {
-				TaskResponseDto dto =(TaskResponseDto) taskService.GetByName(name);		
-				return (List<TaskResponseDto>) dto;
-			} catch (EntityNotFoundException e) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
-			} catch (BadRequestException e) { 
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-			}
-	}
-	
-	
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
 		public @ResponseBody TaskResponseDto register(@RequestBody TaskRequestDto request) {
@@ -52,5 +37,46 @@ public class TaskController{
 					} catch (BadRequestException e) {
 							throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
 					}
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(code= HttpStatus.CREATED)
+	public @ResponseBody TaskResponseDto changeState(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
+			try {
+				TaskResponseDto dto =(TaskResponseDto) taskService.changeState(request,id);		
+				return dto;
+			} catch (EntityNotFoundException e) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
+			} catch (BadRequestException e) { 
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+			}
+	}
+	
+	@RequestMapping(value="/addUser/{id]}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(code= HttpStatus.CREATED)
+	public @ResponseBody TaskResponseDto addUser(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
+			try {
+				TaskResponseDto dto =(TaskResponseDto) taskService.addUser(request,id);		
+				return dto;
+			} catch (EntityNotFoundException e) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
+			} catch (BadRequestException e) { 
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+			}
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/{name}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(code= HttpStatus.CREATED)
+	public @ResponseBody List<TaskResponseDto> getbyName(@PathVariable("name") String name){
+			try {
+				TaskResponseDto dto =(TaskResponseDto) taskService.getByName(name);		
+				return (List<TaskResponseDto>) dto;
+			} catch (EntityNotFoundException e) {
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
+			} catch (BadRequestException e) { 
+				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+			}
 	}
 }
