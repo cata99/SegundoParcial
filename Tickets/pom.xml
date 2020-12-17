@@ -5,12 +5,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>ar.edu.ucc.arqsoft</groupId>
-	<artifactId>ticketService</artifactId>
+	<groupId>ar.ucc.edu.arqSoft</groupId>
+	<artifactId>ar.ucc.edu.ArqSW.Parcial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>App de tickets y tasks</name>
+	<name>Jira proyect</name>
+	<!-- FIXME change it to the project's website -->
+	<!-- <url>http://www.example.com</url> -->
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,7 +22,6 @@
 	</properties>
 
 	<dependencies>
-
 		<!-- https://mvnrepository.com/artifact/log4j/log4j -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -155,10 +156,43 @@
 			<artifactId>jackson-dataformat-xml</artifactId>
 			<version>2.11.3</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>
-		<finalName>ticketService</finalName>
+		<finalName>Jira</finalName>
+		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
+				defaults (may be moved to parent pom) -->
+			<plugins>
+				<plugin>
+					<artifactId>maven-clean-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.0.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.0</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.22.1</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.2.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>2.5.2</version>
+				</plugin>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>2.8.2</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
 </project>

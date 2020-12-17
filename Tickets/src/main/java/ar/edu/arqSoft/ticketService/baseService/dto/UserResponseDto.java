@@ -10,7 +10,7 @@ public class UserResponseDto implements DtoEntity{
 	
 	private String email;
 	
-	private String userName;
+	private Long id;
 
 	public String getName() {
 		return name;
@@ -36,13 +36,12 @@ public class UserResponseDto implements DtoEntity{
 		this.email = email;
 	}
 
-	public String getUserName() {
-		return userName;
+	public Long getId() {
+		return id;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	
+	public void setId(Long id) {
+		this.id = id;
+	}	
 	
 }

@@ -20,19 +20,28 @@ public class StateService{
 	
 	@Autowired
 	private StateDao stateDao;	
-
-	public List<StateResponseDto> getByName(String name) throws EntityNotFoundException, BadRequestException {
-		List<State> states = stateDao.FindByName(name);
+	
+	
+    public StateResponseDto getStateById(Long id) throws EntityNotFoundException, BadRequestException {
+		if (id <= 0)
+		{
+			throw new BadRequestException();
+		}
+        State state = stateDao.load(id);
+                
+        StateResponseDto response = (StateResponseDto) new ModelDtoConverter().convertToDto(state, new StateResponseDto());	
+        return response;
+    }
+	
+	public List<StateResponseDto> getAllState() {
+		List<State> states = stateDao.getAll();
 		
 		List<StateResponseDto> response = new ArrayList<StateResponseDto>();
-		for(State state: states) 
-		{
-			if(state.getId()<=0)
-			{
-				throw new BadRequestException();
-			}
-		response.add((StateResponseDto) new ModelDtoConverter().convertToDto(state,new StateResponseDto()));
+		 
+		for (State state : states) {
+			response.add((StateResponseDto) new ModelDtoConverter().convertToDto(state, new StateResponseDto()));
 		}
+		
 		return response;
 	}
 }

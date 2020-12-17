@@ -2,6 +2,7 @@ package ar.edu.arqSoft.ticketService.baseService.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,9 @@ import ar.edu.arqSoft.ticketService.baseService.dao.UserDao;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.Comment;
+import ar.edu.arqSoft.ticketService.baseService.model.Proyect;
 import ar.edu.arqSoft.ticketService.baseService.model.Task;
+import ar.edu.arqSoft.ticketService.baseService.model.User;
 import ar.edu.arqSoft.ticketService.common.dto.*;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
@@ -43,15 +46,32 @@ public class TaskService{
 		task.setDescription(request.getDescription());
 		task.setProyect(proyectDao.load(request.getIdProyect()));
 		task.setState(stateDao.load(request.getIdState()));
+		task.setUser(userDao.load(request.getIdUser()));
 		
-		taskDao.insert(task);
+		try {
+			taskDao.insert(task);
+		} catch (BadRequestException e ){
+			throw new BadRequestException();
+		}
+		
 		
 		TaskResponseDto response = new TaskResponseDto();
 		
+		response.setId(task.getId());
 		response.setName(task.getName());
 		response.setDescription(task.getDescription());
-		response.setProyect(task.getProyect());
-		response.setState(task.getState());
+		response.setUserName(task.getUser().getName());
+		response.setUserLastname(task.getUser().getLastName());
+		response.setIdUser(task.getUser().getId());
+		response.setIdProyect(task.getProyect().getId());
+		response.setProyectName(task.getProyect().getName());
+		response.setIdState(task.getState().getId());
+		response.setStateName(task.getState().getName());
+
+		Comment comment= new Comment();
+		comment.setDescription("Se creo una nueva tarea");
+		comment.setTask(task);
+		commentDao.insert(comment);
 		
 		return response;	
 			
@@ -64,14 +84,12 @@ public class TaskService{
 		
 		task.setState(stateDao.load(id));
 		
-		taskDao.saveOrUpdate(task);
+		taskDao.update(task);
 		
 		Comment comment= new Comment();
 		
 		comment.setDescription("Se cambio el estado de la tarea");
-		comment.setUser(userDao.load(null));
-		comment.setState(true);
-		comment.setTask(taskDao.load(request.getId()));
+		comment.setTask(task);
 		
 		commentDao.insert(comment);
 		
@@ -83,16 +101,21 @@ public class TaskService{
 		
 	}
 	
-	public TaskResponseDto addUser(TaskRequestDto req, Long userId) throws BadRequestException, EntityNotFoundException
+	public TaskResponseDto addUser(TaskRequestDto req) throws BadRequestException, EntityNotFoundException
 	{
 		Task task = taskDao.load(req.getId());
 		
-		if (userId<=0 )
+		if (req.getIdUser()<=0 )
 		{ 
 			throw new BadRequestException();
 		}
+		Proyect project = task.getProyect();
+		Set<User> project_users = project.getUsers();
+		User user = userDao.load(req.getIdUser());
+		if (!project_users.contains(user))
+			throw new BadRequestException();
 		
-		task.setUsers(userDao.load(userId));
+		task.setUser(userDao.load(req.getIdUser()));
 		
 		taskDao.update(task);
 		
@@ -100,7 +123,6 @@ public class TaskService{
 		
 		comment.setDescription("Se agrego un nuevo usuario");
 		comment.setUser(userDao.load(null));
-		comment.setState(true);
 		comment.setTask(taskDao.load(req.getId()));
 		
 		commentDao.insert(comment);
@@ -114,15 +136,11 @@ public class TaskService{
 	}
 	
 	
-	public List<TaskResponseDto> getByName(String name) throws BadRequestException, EntityNotFoundException {
-		List<Task> tasks = taskDao.FindByName(name);
+	public List<TaskResponseDto> GetAllTask() {
+		List<Task> tasks = taskDao.getAll();
 		
 		List<TaskResponseDto> response = new ArrayList<TaskResponseDto>();
 		for(Task task: tasks) {
-			if (task.getId()<=0)
-			{
-				throw new BadRequestException();
-			}
 		response.add((TaskResponseDto) new ModelDtoConverter().convertToDto(task,new TaskResponseDto()));
 		}
 		return response;

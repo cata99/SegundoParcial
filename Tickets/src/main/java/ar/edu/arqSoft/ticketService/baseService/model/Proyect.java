@@ -3,6 +3,7 @@ package ar.edu.arqSoft.ticketService.baseService.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -40,7 +41,7 @@ public class Proyect extends GenericObject{
 	@Column(name = "STATE_PROYECT")
 	private StateProyect state;
 	
-	@ManyToMany(mappedBy = "users")
+	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<User> users;
 	
 	@OneToMany (targetEntity=User.class, mappedBy="TASK", fetch = FetchType.LAZY)

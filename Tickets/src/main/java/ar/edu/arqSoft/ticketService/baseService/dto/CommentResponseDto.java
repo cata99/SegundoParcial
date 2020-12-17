@@ -1,7 +1,6 @@
 package ar.edu.arqSoft.ticketService.baseService.dto;
 
-import ar.edu.arqSoft.ticketService.baseService.model.Task;
-import ar.edu.arqSoft.ticketService.baseService.model.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ar.edu.arqSoft.ticketService.common.dto.*;
 
 public class CommentResponseDto implements DtoEntity{
@@ -10,16 +9,18 @@ public class CommentResponseDto implements DtoEntity{
 	
 	private Boolean state;
 	
-	private User user;
+	private Long taskId;
 	
-	private Task task;
+	private Long userId;
+	
+	private Long id;
 
-	public Task getTask() {
-		return task;
+	public Long getId() {
+		return id;
 	}
 
-	public void setTask(Task task) {
-		this.task = task;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getDescription() {
@@ -38,14 +39,22 @@ public class CommentResponseDto implements DtoEntity{
 		this.state = state;
 	}
 
-	public User getUser() {
-		return user;
+	@JsonProperty("task_id")
+	public Long getTaskId() {
+		return taskId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setTaskId(Long taskId) {
+		this.taskId = taskId;
+	}
+
+	@JsonProperty("user_id")
+	public Long getUserId() {
+		return userId;
 	}
 	
-	
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 	
 }

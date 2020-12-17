@@ -21,9 +21,6 @@ public class Comment extends GenericObject{
 	@Column (name="DESCRIPTION")
 	private String description;
 	
-	@Column(name="STATE_COMMENT") //VER
-	private Boolean state;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="COMMENT_ID")
 	private Task task;
@@ -56,13 +53,5 @@ public class Comment extends GenericObject{
 		this.description = description;
 	}
 
-	public Boolean getState() {
-		return state;
-	}
-
-	public void setState(Boolean state) {
-		this.state = state;
-	}
-	
 	
 }

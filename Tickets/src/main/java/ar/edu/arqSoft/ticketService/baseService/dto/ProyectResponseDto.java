@@ -1,7 +1,6 @@
 package ar.edu.arqSoft.ticketService.baseService.dto;
 
 import java.util.Date;
-import java.util.Set;
 
 import ar.edu.arqSoft.ticketService.baseService.model.*;
 import ar.edu.arqSoft.ticketService.common.dto.*;
@@ -18,9 +17,7 @@ public class ProyectResponseDto implements DtoEntity{
 	
 	private StateProyect state;
 	
-	private Set<Task> task;
-	
-	private Set<User> user;
+	private Long id;
 
 	public String getName() {
 		return name;
@@ -62,23 +59,12 @@ public class ProyectResponseDto implements DtoEntity{
 		this.state = state;
 	}
 
-	public Set<Task> getTask() {
-		return task;
+	public Long getId() {
+		return id;
 	}
 
-	public void setTask(Set<Task> task) {
-		this.task = task;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-	public Set<User> getUser() {
-		return user;
-	}
-
-	public void setUser(Set<User> user) {
-		this.user = user;
-	}
-	
-	
-	
 	
 }

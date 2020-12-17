@@ -18,50 +18,49 @@ import ar.edu.arqSoft.ticketService.baseService.model.Comment;
 import ar.edu.arqSoft.ticketService.baseService.model.Task;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentRequestDto;
 
-
 @Service
 @Transactional
-public class CommentService{
-	
+public class CommentService {
+
 	@Autowired
 	private CommentDao commentDao;
-	
+
 	private TaskDao taskDao;
-	
+
 	private UserDao userDao;
-	
-	public CommentResponseDto insertComment (CommentRequestDto request) throws EntityNotFoundException, BadRequestException{
-	
-		Task task=taskDao.load(request.getIdTask());
-		
-		if (task.getState().getName() == "Finish")
-		{
+
+	public CommentResponseDto insertComment(CommentRequestDto request)
+			throws EntityNotFoundException, BadRequestException {
+
+		Task task = taskDao.load(request.getIdTask());
+
+		if (task.getState().getName() == "Finish") {
 			throw new BadRequestException();
 		}
-		
-		
 		Comment comment = new Comment();
-		
+
 		comment.setDescription(request.getDescription());
-		comment.setState(request.getState());
 		comment.setUser(userDao.load(request.getIdUser()));
 		comment.setTask(taskDao.load(request.getIdTask()));
-		
-		commentDao.insert(comment);
-		
+
+		try {
+			commentDao.insert(comment);
+		} catch (BadRequestException e) {
+			throw new BadRequestException();
+		}
+
 		CommentResponseDto response = new CommentResponseDto();
-		
+
 		response.setDescription(comment.getDescription());
-		response.setState(comment.getState());
-		response.setUser(comment.getUser());
-		response.setTask(comment.getTask());
-		
+		response.setId(comment.getId());
+		response.setUserId(comment.getUser().getId());
+		response.setTaskId(comment.getTask().getId());
+
 		return response;
-		
+
 	}
-	
-	
-	public List<CommentResponseDto> getAll() throws EntityNotFoundException, BadRequestException{
+
+	public List<CommentResponseDto> getAll() throws EntityNotFoundException, BadRequestException {
 		List<Comment> Comments = commentDao.getAll();
 		List<CommentResponseDto> response = new ArrayList<CommentResponseDto>();
 		for (Comment Comment : Comments) {
@@ -69,10 +68,28 @@ public class CommentService{
 				throw new BadRequestException();
 			}
 			response.add((CommentResponseDto) new ModelDtoConverter().convertToDto(Comment, new CommentResponseDto()));
-			}
+		}
 		return response;
 	}
 	
+	public CommentResponseDto getCommentById(Long id) throws EntityNotFoundException, BadRequestException {
+		if (id <= 0)
+		{
+			throw new BadRequestException();
+		}
+		Comment comment = commentDao.load(id);
+		
+		CommentResponseDto response = new CommentResponseDto();
+		
+		
+		response.setDescription(comment.getDescription());
+		response.setId(comment.getId());
+		response.setUserId(comment.getUser().getId());
+		response.setTaskId(comment.getTask().getId());
+
+		return response;
 	
+	}
+
 
 }

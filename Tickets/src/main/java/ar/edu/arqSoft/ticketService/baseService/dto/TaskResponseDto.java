@@ -1,44 +1,68 @@
 package ar.edu.arqSoft.ticketService.baseService.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ar.edu.arqSoft.ticketService.common.dto.*;
 
-import java.util.Set;
 
-import ar.edu.arqSoft.ticketService.baseService.model.*;
 
 public class TaskResponseDto implements DtoEntity{
+	
+	private Long id;
+	
+	private Long idUser;
+	
+	private Long idProyect;
+	
+	private Long idState;
 	
 	private String name;
 	
 	private String description;
 	
-	private Set<User> user;
+	private String userName;
 	
-	private Set<Comment> comment;
+	private String userLastname;
 	
-	private Proyect proyect;
+	private String proyectName;
 	
+	private String stateName;
 
-	private State state;
-	
-	
-
-	public State getState() {
-		return state;
+	public Long getId() {
+		return id;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Proyect getProyect() {
-		return proyect;
+	@JsonProperty("id_user")
+	public Long getIdUser() {
+		return idUser;
 	}
 
-	public void setProyect(Proyect proyect) {
-		this.proyect = proyect;
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
 	}
 
+	@JsonProperty("id_proyect")
+	public Long getIdProyect() {
+		return idProyect;
+	}
+
+	public void setIdProyect(Long idProyect) {
+		this.idProyect = idProyect;
+	}
+
+	@JsonProperty("id_state")
+	public Long getIdState() {
+		return idState;
+	}
+
+	public void setIdState(Long idState) {
+		this.idState = idState;
+	}
+
+	@JsonProperty("taskName")
 	public String getName() {
 		return name;
 	}
@@ -55,21 +79,40 @@ public class TaskResponseDto implements DtoEntity{
 		this.description = description;
 	}
 
-	public Set<User> getUser() {
-		return user;
+	@JsonProperty("userName")
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUser(Set<User> user) {
-		this.user = user;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public Set<Comment> getComment() {
-		return comment;
+	@JsonProperty("userLastname")
+	public String getUserLastname() {
+		return userLastname;
 	}
 
-	public void setComment(Set<Comment> comment) {
-		this.comment = comment;
+	public void setUserLastname(String userLastname) {
+		this.userLastname = userLastname;
 	}
-	
+
+	@JsonProperty("proyectName")
+	public String getProyectName() {
+		return proyectName;
+	}
+
+	public void setProyectName(String proyectName) {
+		this.proyectName = proyectName;
+	}
+
+	@JsonProperty("stateName")
+	public String getStateName() {
+		return stateName;
+	}
+
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
 	
 }

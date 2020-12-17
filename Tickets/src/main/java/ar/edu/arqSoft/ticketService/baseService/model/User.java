@@ -2,7 +2,6 @@ package ar.edu.arqSoft.ticketService.baseService.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,24 +31,14 @@ public class User extends GenericObject{
 	@Size(min=1, max=100)
 	@Column (name="EMAIL")
 	private String email;
-	
-	@NotNull
-	@Size(min=1, max=250)
-	@Column (name="USERNAME")
-	private String userName;
-	
-	@NotNull
-	@Size(min=1, max=250)
-	@Column (name="PASSWORD")
-	private String password;
-	
-	@ManyToMany(cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
 	private Set<Task> tasks;
 	
 	@OneToMany (targetEntity=User.class, mappedBy="USER", fetch = FetchType.LAZY)
 	private Set<Comment> comments;
 
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(mappedBy="user")
 	private Set<Proyect> proyects;
 	
 	public Set<Task> getTasks() {
@@ -100,21 +89,5 @@ public class User extends GenericObject{
 		this.email = email;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
 	
 }

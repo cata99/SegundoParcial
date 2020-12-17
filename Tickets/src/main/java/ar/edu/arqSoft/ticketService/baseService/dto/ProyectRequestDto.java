@@ -16,7 +16,6 @@ public class ProyectRequestDto implements DtoEntity{
 	
 	private StateProyect state;
 	
-	
 	private Long idUser;
 
 	public String getName() {

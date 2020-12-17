@@ -6,8 +6,6 @@ public class CommentRequestDto implements DtoEntity{
 
 	private String description;
 	
-	private Boolean state;
-	
 	private Long idTask;
 	
 	private Long idUser;
@@ -37,12 +35,4 @@ public class CommentRequestDto implements DtoEntity{
 		this.description = description;
 	}
 
-	public Boolean getState() {
-		return state;
-	}
-
-	public void setState(Boolean state) {
-		this.state = state;
-	}
-	
 }

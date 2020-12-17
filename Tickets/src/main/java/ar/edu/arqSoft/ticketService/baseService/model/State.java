@@ -20,11 +20,7 @@ public class State extends GenericObject{
 	@Size(min=1, max=250)
 	@Column (name="STATE")
 	private String name;
-	
-	@Size(min=1, max=250)
-	@Column (name="DESCRIPTION")
-	private String description;
-	
+
 	@OneToMany (targetEntity=User.class, mappedBy="Task", fetch = FetchType.LAZY)
 	private Set<Task> tasks;
 
@@ -36,13 +32,6 @@ public class State extends GenericObject{
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	public Set<Task> getTasks() {
 		return tasks;

@@ -14,6 +14,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ar.edu.arqSoft.ticketService.common.exception.*;
 
 
 @Repository
@@ -31,9 +32,12 @@ public abstract class GenericDaoImp<E, ID extends Serializable> implements Gener
 		daoType = (Class<? extends E>) pt.getActualTypeArguments()[0];
 	}
 
-	public void insert(E entity){
+	public void insert(E entity)throws BadRequestException {
+		try {
 			em.persist(entity);
-		
+		} catch (Exception e) {
+			throw new BadRequestException();
+		}
 	}
 
 	public void saveOrUpdate(E entity) {
@@ -48,10 +52,11 @@ public abstract class GenericDaoImp<E, ID extends Serializable> implements Gener
 		em.remove(entity);
 	}
 
-	public E load(ID key) {
+	public E load(ID key) throws EntityNotFoundException{
 		E entity = em.find(daoType, key);
-		
-		
+		if (entity == null) {
+			throw new EntityNotFoundException();
+		}
 		return entity;
 	}
 

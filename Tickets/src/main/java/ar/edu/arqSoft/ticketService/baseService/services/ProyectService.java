@@ -1,5 +1,6 @@
 package ar.edu.arqSoft.ticketService.baseService.services;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,25 +37,22 @@ public class ProyectService{
 	@Autowired
 	private CommentDao commentDao;
 	
+	public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	
 	public ProyectResponseDto insertProyect (ProyectRequestDto request) throws BadRequestException, EntityNotFoundException {
 		
-		Proyect proyect= new Proyect();
+		Proyect proyect = (Proyect) new ModelDtoConverter().convertToEntity(new Proyect(), request);
 		
-		proyect.setName(request.getName());
-		proyect.setDescription(request.getDescription());
-		proyect.setStartDate(request.getStartDate());
-		proyect.setFinishDate(request.getFinishDate());
+		try {
+			proyectDao.insert(proyect);
+			}
+			catch(BadRequestException e){
+				throw new BadRequestException();
+			}
 		
-		proyectDao.insert(proyect);
-	
-		ProyectResponseDto response = new ProyectResponseDto();
+		ProyectResponseDto response = (ProyectResponseDto) new ModelDtoConverter().convertToDto(proyect, new ProyectResponseDto());	
 		
-		response.setName(proyect.getName());
-		response.setDescription(proyect.getDescription());
-		response.setStartDate(proyect.getStartDate());
-		response.setFinishDate(proyect.getFinishDate());
-		
-		return response; 
+		return response;
 		
 	}
 	
@@ -73,7 +71,6 @@ public class ProyectService{
 		
 		comment.setDescription("Se agrego un nuevo usuario");
 		comment.setUser(userDao.load(null));
-		comment.setState(true);
 		comment.setTask(null);
 		
 		commentDao.insert(comment);
@@ -99,8 +96,8 @@ public class ProyectService{
 		
 		comment.setDescription("Se agrego una nueva tarea al proyecto");
 		comment.setUser(userDao.load(null));
-		comment.setState(true);
-		comment.setTask(taskDao.load(req.getId()));
+		comment.setTask(null);
+		
 		
 		commentDao.insert(comment);
 		
@@ -126,6 +123,27 @@ public class ProyectService{
 		return response;
 	}
 	
-	
+	   public ProyectResponseDto getproyectById(Long id) throws EntityNotFoundException, BadRequestException {
+			if (id <= 0)
+			{
+				throw new BadRequestException();
+			}
+	    	Proyect proyect = proyectDao.load(id);
+	                
+	    	ProyectResponseDto response = (ProyectResponseDto) new ModelDtoConverter().convertToDto(proyect, new ProyectResponseDto());	
+	        return response;
+	    }
+	   
+	   public List<ProyectResponseDto> getAllProyect() {
+			List<Proyect> proyects = proyectDao.getAll();
+			
+			List<ProyectResponseDto> response = new ArrayList<ProyectResponseDto>();
+			 
+			for (Proyect proyect : proyects) {
+				response.add((ProyectResponseDto) new ModelDtoConverter().convertToDto(proyect, new ProyectResponseDto()));
+			}
+			
+			return response;
+		}
 	
 }
