@@ -22,11 +22,11 @@ public class Comment extends GenericObject{
 	private String description;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="COMMENT_ID")
+	@JoinColumn(name="TASK_ID")
 	private Task task;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="COMMENT_ID")
+	@JoinColumn(name="USER_ID")
 	private User user;
 
 	public Task getTask() {

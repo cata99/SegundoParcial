@@ -2,6 +2,7 @@ package ar.edu.arqSoft.ticketService.baseService.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,13 +33,13 @@ public class User extends GenericObject{
 	@Column (name="EMAIL")
 	private String email;
 
-	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "users")
 	private Set<Task> tasks;
 	
-	@OneToMany (targetEntity=User.class, mappedBy="USER", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
 	private Set<Comment> comments;
 
-	@ManyToMany(mappedBy="user")
+	@ManyToMany(mappedBy = "users")
 	private Set<Proyect> proyects;
 	
 	public Set<Task> getTasks() {

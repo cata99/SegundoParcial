@@ -2,10 +2,12 @@ package ar.edu.arqSoft.ticketService.baseService.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,9 +34,8 @@ public class Task extends GenericObject{
 	@JoinColumn(name="PROYECT_ID")
 	private Proyect proyect;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="USER_ID", nullable = true)
-	private User user;
+	@ManyToMany(cascade = CascadeType.ALL)
+	private Set<User> users;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="STATE_ID")
@@ -83,12 +84,13 @@ public class Task extends GenericObject{
 		this.proyect = proyect;
 	}
 
-	public User getUser() {
-		return user;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
+	
 	
 }

@@ -44,8 +44,8 @@ public class Proyect extends GenericObject{
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<User> users;
 	
-	@OneToMany (targetEntity=User.class, mappedBy="TASK", fetch = FetchType.LAZY)
-	private Set<Task>  tasks;
+	@OneToMany (mappedBy="proyect", fetch = FetchType.LAZY)
+	private Set<Task> tasks;
 
 	public String getName() {
 		return name;

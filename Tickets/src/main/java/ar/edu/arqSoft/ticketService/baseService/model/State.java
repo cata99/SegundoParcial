@@ -21,7 +21,7 @@ public class State extends GenericObject{
 	@Column (name="STATE")
 	private String name;
 
-	@OneToMany (targetEntity=User.class, mappedBy="Task", fetch = FetchType.LAZY)
+	@OneToMany (mappedBy="state", fetch = FetchType.LAZY)
 	private Set<Task> tasks;
 
 	public String getName() {
