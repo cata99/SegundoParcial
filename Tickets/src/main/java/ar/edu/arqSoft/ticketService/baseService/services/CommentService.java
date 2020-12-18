@@ -72,24 +72,4 @@ public class CommentService {
 		return response;
 	}
 	
-	public CommentResponseDto getCommentById(Long id) throws EntityNotFoundException, BadRequestException {
-		if (id <= 0)
-		{
-			throw new BadRequestException();
-		}
-		Comment comment = commentDao.load(id);
-		
-		CommentResponseDto response = new CommentResponseDto();
-		
-		
-		response.setDescription(comment.getDescription());
-		response.setId(comment.getId());
-		response.setUserId(comment.getUser().getId());
-		response.setTaskId(comment.getTask().getId());
-
-		return response;
-	
-	}
-
-
 }

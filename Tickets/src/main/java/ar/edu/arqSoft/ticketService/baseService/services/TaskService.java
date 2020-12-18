@@ -136,7 +136,7 @@ public class TaskService{
 	}
 	
 	
-	public List<TaskResponseDto> GetAllTask() {
+	public List<TaskResponseDto> getAllTask() {
 		List<Task> tasks = taskDao.getAll();
 		
 		List<TaskResponseDto> response = new ArrayList<TaskResponseDto>();

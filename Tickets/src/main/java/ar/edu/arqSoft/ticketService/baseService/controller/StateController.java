@@ -1,4 +1,5 @@
 package ar.edu.arqSoft.ticketService.baseService.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,23 +20,28 @@ import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 
 @Controller
 @RequestMapping("/state")
-public class StateController{
-	
+public class StateController {
+
 	@Autowired
 	private StateService stateService;
-	
+
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/{name}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(code= HttpStatus.CREATED)
-	public @ResponseBody List<StateResponseDto> getbyName(@PathVariable("name") String name){
-			try {
-				StateResponseDto dto =(StateResponseDto) stateService.getByName(name);		
-				return (List<StateResponseDto>) dto;
-			} catch (EntityNotFoundException e) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "State Not Found", e);
-			} catch (BadRequestException e) { 
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-			}
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public @ResponseBody List<StateResponseDto> getbyName(@PathVariable("id") Long id) {
+		try {
+			StateResponseDto dto = (StateResponseDto) stateService.getStateById(id);
+			return (List<StateResponseDto>) dto;
+		} catch (EntityNotFoundException e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "State Not Found", e);
+		} catch (BadRequestException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+		}
 	}
-	
+
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<StateResponseDto> getAllState() {
+		return stateService.getAllState();
+	}
+
 }

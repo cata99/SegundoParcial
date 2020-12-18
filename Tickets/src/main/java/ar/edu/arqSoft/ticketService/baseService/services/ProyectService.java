@@ -123,16 +123,7 @@ public class ProyectService{
 		return response;
 	}
 	
-	   public ProyectResponseDto getproyectById(Long id) throws EntityNotFoundException, BadRequestException {
-			if (id <= 0)
-			{
-				throw new BadRequestException();
-			}
-	    	Proyect proyect = proyectDao.load(id);
-	                
-	    	ProyectResponseDto response = (ProyectResponseDto) new ModelDtoConverter().convertToDto(proyect, new ProyectResponseDto());	
-	        return response;
-	    }
+	
 	   
 	   public List<ProyectResponseDto> getAllProyect() {
 			List<Proyect> proyects = proyectDao.getAll();

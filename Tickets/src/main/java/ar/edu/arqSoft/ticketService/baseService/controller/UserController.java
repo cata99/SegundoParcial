@@ -1,4 +1,5 @@
 package ar.edu.arqSoft.ticketService.baseService.controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,37 +22,37 @@ import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 
 @Controller
 @RequestMapping("/user")
-public class UserController{
-	
+public class UserController {
+
 	@Autowired
 	private UserService userService;
-	
-	
-	 
+
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(code= HttpStatus.CREATED)
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public @ResponseBody UserResponseDto register(@RequestBody UserRequestDto request) {
-				try {
-						UserResponseDto dto = (UserResponseDto) userService.InsertUser(request);
-						return dto;
-				} catch (EntityNotFoundException e) {
-						throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found", e);
-				} catch (BadRequestException e) {
-						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-				}
+		try {
+			UserResponseDto dto = (UserResponseDto) userService.InsertUser(request);
+			return dto;
+		} catch (BadRequestException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+		}
 	}
-	 
-	 @SuppressWarnings("unchecked")
-	 @RequestMapping(value="/{name}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-	 @ResponseStatus(code= HttpStatus.CREATED)
-	 public @ResponseBody List<UserResponseDto> getbyName(@PathVariable("name") String name){
-			try {
-				UserResponseDto dto =(UserResponseDto) userService.GetByName(name);		
-				return (List<UserResponseDto>) dto;
-			} catch (EntityNotFoundException e) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found", e);
-			} catch (BadRequestException e) { 
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-			}
+
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<UserResponseDto> getAllUser() {
+		return userService.getAllUser();
+	}
+
+	@RequestMapping(value = "usersFromProyect/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody UserResponseDto getById(@PathVariable("id") Long id) {
+		try {
+			UserResponseDto dto = (UserResponseDto) userService.getUserById(id);
+			return dto;
+		} catch (BadRequestException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+		} catch (EntityNotFoundException e) {
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found", e);
+	}
+
 	}
 }

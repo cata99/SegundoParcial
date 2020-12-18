@@ -20,36 +20,40 @@ import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 
 @Controller
 @RequestMapping("/comment")
-public class CommentController{
-	
+public class CommentController {
+
 	@Autowired
 	private CommentService commentService;
-	
-	
+
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(code= HttpStatus.CREATED)
-		public @ResponseBody CommentResponseDto register(@RequestBody CommentRequestDto request) {
-					try {
-							CommentResponseDto dto = (CommentResponseDto) commentService.insertComment(request);
-							return dto;
-					} catch (EntityNotFoundException e) {
-							throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment Not Found", e);
-					} catch (BadRequestException e) {
-							throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-					}
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public @ResponseBody CommentResponseDto register(@RequestBody CommentRequestDto request) {
+		try {
+			CommentResponseDto dto = (CommentResponseDto) commentService.insertComment(request);
+			return dto;
+		} catch (EntityNotFoundException e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment Not Found", e);
+		} catch (BadRequestException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public @ResponseBody List<CommentResponseDto> getAll() {
+		try {
+			CommentResponseDto dto = (CommentResponseDto) commentService.getAll();
+			return (List<CommentResponseDto>) dto;
+		} catch (EntityNotFoundException e) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film Not Found", e);
+		} catch (BadRequestException e) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+		}
 	}
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(code= HttpStatus.CREATED)
-		 public @ResponseBody List<CommentResponseDto> getAll(){
-					try {
-						CommentResponseDto dto = (CommentResponseDto) commentService.getAll();
-						return (List<CommentResponseDto>) dto;
-					} catch (EntityNotFoundException e) {
-						throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film Not Found", e);
-					} catch (BadRequestException e) {
-						throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-					}
-	}
+
+	
+	
+	
 }

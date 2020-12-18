@@ -41,20 +41,20 @@ public class ProyectController{
 					}
 	}
 	
-	@RequestMapping(value="/addUser/{id]}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(code= HttpStatus.CREATED)
-	public @ResponseBody ProyectResponseDto addUser(@RequestBody UserRequestDto request, @PathVariable("id") Long id){
-			try {
-				ProyectResponseDto dto =(ProyectResponseDto) proyectService.addUser(request, id);		
-				return dto;
-			} catch (EntityNotFoundException e) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
-			} catch (BadRequestException e) { 
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-			}
-	}
+	@RequestMapping(value="/addUser/{id]}", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ProyectResponseDto addUser(@RequestBody UserRequestDto request, @PathVariable("id") Long id)
+	{
+		try {
+			ProyectResponseDto dto =(ProyectResponseDto) proyectService.addUser(request, id);		
+		return dto;
+	} catch (EntityNotFoundException e) {
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
+	} catch (BadRequestException e) { 
+		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
+	}}
 	
-	@RequestMapping(value="/addTask/{id]}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	
+	@RequestMapping(value="/addTask/{id]}", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
 	public @ResponseBody ProyectResponseDto addTask(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
 			try {
@@ -79,5 +79,10 @@ public class ProyectController{
 			} catch (BadRequestException e) { 
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
 			}
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<ProyectResponseDto> getAllProject() {
+		return proyectService.getAllProyect();
 	}
 }

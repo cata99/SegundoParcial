@@ -39,7 +39,7 @@ public class TaskController{
 					}
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
 	public @ResponseBody TaskResponseDto changeState(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
 			try {
@@ -52,11 +52,11 @@ public class TaskController{
 			}
 	}
 	
-	@RequestMapping(value="/addUser/{id]}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/addUser/{id]}", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
 	public @ResponseBody TaskResponseDto addUser(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
 			try {
-				TaskResponseDto dto =(TaskResponseDto) taskService.addUser(request,id);		
+				TaskResponseDto dto =(TaskResponseDto) taskService.addUser(request);		
 				return dto;
 			} catch (EntityNotFoundException e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
@@ -66,17 +66,8 @@ public class TaskController{
 	}
 	
 	
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/{name}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(code= HttpStatus.CREATED)
-	public @ResponseBody List<TaskResponseDto> getbyName(@PathVariable("name") String name){
-			try {
-				TaskResponseDto dto =(TaskResponseDto) taskService.getByName(name);		
-				return (List<TaskResponseDto>) dto;
-			} catch (EntityNotFoundException e) {
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
-			} catch (BadRequestException e) { 
-				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-			}
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<TaskResponseDto> getAllTask() {
+		return taskService.getAllTask();
 	}
 }
