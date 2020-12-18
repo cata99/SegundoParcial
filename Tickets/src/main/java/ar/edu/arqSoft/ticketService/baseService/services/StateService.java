@@ -16,32 +16,31 @@ import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 
 @Service
 @Transactional
-public class StateService{
-	
+public class StateService {
+
 	@Autowired
-	private StateDao stateDao;	
-	
-	
-    public StateResponseDto getStateById(Long id) throws EntityNotFoundException, BadRequestException {
-		if (id <= 0)
-		{
+	private StateDao stateDao;
+
+	public StateResponseDto getStateById(Long id) throws EntityNotFoundException, BadRequestException {
+		if (id <= 0) {
 			throw new BadRequestException();
 		}
-        State state = stateDao.load(id);
-                
-        StateResponseDto response = (StateResponseDto) new ModelDtoConverter().convertToDto(state, new StateResponseDto());	
-        return response;
-    }
-	
+		State state = stateDao.load(id);
+
+		StateResponseDto response = (StateResponseDto) new ModelDtoConverter().convertToDto(state,
+				new StateResponseDto());
+		return response;
+	}
+
 	public List<StateResponseDto> getAllState() {
 		List<State> states = stateDao.getAll();
-		
+
 		List<StateResponseDto> response = new ArrayList<StateResponseDto>();
-		 
+
 		for (State state : states) {
 			response.add((StateResponseDto) new ModelDtoConverter().convertToDto(state, new StateResponseDto()));
 		}
-		
+
 		return response;
 	}
 }

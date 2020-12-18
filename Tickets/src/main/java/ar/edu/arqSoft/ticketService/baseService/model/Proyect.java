@@ -18,34 +18,31 @@ import javax.validation.constraints.Size;
 import ar.edu.arqSoft.ticketService.common.model.GenericObject;
 
 @Entity
-@Table(name="PROYECT")
-public class Proyect extends GenericObject{
-	
+@Table(name = "PROYECT")
+public class Proyect extends GenericObject {
+
 	@NotNull
-	@Size(min=1, max=250)
-	@Column (name="NAME")
+	@Size(min = 1, max = 250)
+	@Column(name = "NAME")
 	private String name;
-	
+
 	@NotNull
-	@Size(min=1, max=250)
-	@Column (name="DESCRPTION")
+	@Size(min = 1, max = 250)
+	@Column(name = "DESCRPTION")
 	private String description;
-	
-	@Column(name="START_DATE")
+
+	@Column(name = "START_DATE")
 	private Date startDate;
-	
-	@Column(name = "END_DATE")
-	private Date finishDate;
-	
+
 	@Enumerated(value = EnumType.ORDINAL)
 	@Column(name = "STATE_PROYECT")
 	private StateProyect state;
-	
+
 	@ManyToMany(cascade = CascadeType.ALL)
 	private Set<User> users;
-	
-	@OneToMany (targetEntity=User.class, mappedBy="TASK", fetch = FetchType.LAZY)
-	private Set<Task>  tasks;
+
+	@OneToMany(mappedBy = "proyect", fetch = FetchType.LAZY)
+	private Set<Task> tasks;
 
 	public String getName() {
 		return name;
@@ -69,14 +66,6 @@ public class Proyect extends GenericObject{
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-	}
-
-	public Date getFinishDate() {
-		return finishDate;
-	}
-
-	public void setFinishDate(Date finishDate) {
-		this.finishDate = finishDate;
 	}
 
 	public StateProyect getState() {
@@ -103,5 +92,5 @@ public class Proyect extends GenericObject{
 		this.tasks.add(tasks);
 	}
 	
-	
+
 }

@@ -4,19 +4,25 @@ import java.util.Date;
 import ar.edu.arqSoft.ticketService.baseService.model.StateProyect;
 import ar.edu.arqSoft.ticketService.common.dto.*;
 
-public class ProyectRequestDto implements DtoEntity{
-	
+public class ProyectRequestDto implements DtoEntity {
+
 	private String name;
-	
+
 	private String description;
-	
+
 	private Date startDate;
-	
-	private Date finishDate;
-	
+
 	private StateProyect state;
-	
-	private Long idUser;
+
+	private Long id;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -42,14 +48,6 @@ public class ProyectRequestDto implements DtoEntity{
 		this.startDate = startDate;
 	}
 
-	public Date getFinishDate() {
-		return finishDate;
-	}
-
-	public void setFinishDate(Date finishDate) {
-		this.finishDate = finishDate;
-	}
-
 	public StateProyect getState() {
 		return state;
 	}
@@ -58,11 +56,4 @@ public class ProyectRequestDto implements DtoEntity{
 		this.state = state;
 	}
 
-	public Long getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
-	}
 }

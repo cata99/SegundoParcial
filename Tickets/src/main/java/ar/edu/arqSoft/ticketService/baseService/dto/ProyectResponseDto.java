@@ -13,8 +13,6 @@ public class ProyectResponseDto implements DtoEntity{
 	
 	private Date startDate;
 	
-	private Date finishDate;
-	
 	private StateProyect state;
 	
 	private Long id;
@@ -41,14 +39,6 @@ public class ProyectResponseDto implements DtoEntity{
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
-	}
-
-	public Date getFinishDate() {
-		return finishDate;
-	}
-
-	public void setFinishDate(Date finishDate) {
-		this.finishDate = finishDate;
 	}
 
 	public StateProyect getState() {

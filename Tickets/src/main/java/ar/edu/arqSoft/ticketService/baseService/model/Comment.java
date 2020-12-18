@@ -11,22 +11,21 @@ import javax.validation.constraints.Size;
 
 import ar.edu.arqSoft.ticketService.common.model.GenericObject;
 
-
 @Entity
-@Table(name="COMMENT")
-public class Comment extends GenericObject{
-	
+@Table(name = "COMMENT")
+public class Comment extends GenericObject {
+
 	@NotNull
-	@Size(min=1, max=250)
-	@Column (name="DESCRIPTION")
+	@Size(min = 1, max = 250)
+	@Column(name = "DESCRIPTION")
 	private String description;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="COMMENT_ID")
+	@JoinColumn(name = "TASK_ID")
 	private Task task;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="COMMENT_ID")
+	@JoinColumn(name = "USER_ID")
 	private User user;
 
 	public Task getTask() {
@@ -53,5 +52,4 @@ public class Comment extends GenericObject{
 		this.description = description;
 	}
 
-	
 }

@@ -45,22 +45,17 @@ public class UserService {
 		return response;
 	}
 
-	public UserResponseDto getUserById(Long id) throws EntityNotFoundException, BadRequestException {
+	public List<UserResponseDto> GetByName(String name) throws EntityNotFoundException, BadRequestException {
+		List<User> users = userDao.FindByName(name);
 
-		if (id <= 0) {
-			throw new BadRequestException();
+		List<UserResponseDto> response = new ArrayList<UserResponseDto>();
+		for (User user : users) {
+			if (user.getId() <= 0) {
+				throw new BadRequestException();
+			}
+			response.add((UserResponseDto) new ModelDtoConverter().convertToDto(user, new UserResponseDto()));
 		}
-		User user = userDao.load(id);
-
-		UserResponseDto response = new UserResponseDto();
-
-		response.setId(user.getId());
-		response.setName(user.getName());
-		response.setLastName(user.getLastName());
-		response.setEmail(user.getEmail());
 		return response;
 	}
-
-	
 
 }

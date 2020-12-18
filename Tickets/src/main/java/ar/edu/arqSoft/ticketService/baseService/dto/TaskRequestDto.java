@@ -1,52 +1,32 @@
 package ar.edu.arqSoft.ticketService.baseService.dto;
 
+import ar.edu.arqSoft.ticketService.baseService.model.State;
 import ar.edu.arqSoft.ticketService.common.dto.*;
 
-public class TaskRequestDto implements DtoEntity{
-	
-	private Long idState;
-	
-	private Long idUser;
-	
-	private Long idProyect;
-	
+public class TaskRequestDto implements DtoEntity {
+
+	private State state;
+
 	private String name;
-	
-	private String description;	
-	
+
+	private String description;
+
 	private Long id;
 
-	
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Long getIdState() {
-		return idState;
-	}
-
-	public void setIdState(Long idState) {
-		this.idState = idState;
-	}
-
-	public Long getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
-	}
-
-	public Long getIdProyect() {
-		return idProyect;
-	}
-
-	public void setIdProyect(Long idProyect) {
-		this.idProyect = idProyect;
 	}
 
 	public String getName() {
@@ -63,5 +43,5 @@ public class TaskRequestDto implements DtoEntity{
 
 	public void setDescription(String description) {
 		this.description = description;
-	}	
+	}
 }

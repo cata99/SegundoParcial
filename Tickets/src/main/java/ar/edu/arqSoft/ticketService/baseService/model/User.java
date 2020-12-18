@@ -15,32 +15,32 @@ import ar.edu.arqSoft.ticketService.common.model.GenericObject;
 
 @Entity
 @Table(name = "USER")
-public class User extends GenericObject{
-	
+public class User extends GenericObject {
+
 	@NotNull
-	@Size(min=1, max=250)
-	@Column (name="NAME")
+	@Size(min = 1, max = 250)
+	@Column(name = "NAME")
 	private String name;
-	
+
 	@NotNull
-	@Size(min=1, max=250)
-	@Column (name="LASTNAME")
+	@Size(min = 1, max = 250)
+	@Column(name = "LASTNAME")
 	private String lastName;
-	
+
 	@NotNull
-	@Size(min=1, max=100)
-	@Column (name="EMAIL")
+	@Size(min = 1, max = 100)
+	@Column(name = "EMAIL")
 	private String email;
 
-	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "users")
 	private Set<Task> tasks;
-	
-	@OneToMany (targetEntity=User.class, mappedBy="USER", fetch = FetchType.LAZY)
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<Comment> comments;
 
-	@ManyToMany(mappedBy="user")
+	@ManyToMany(mappedBy = "users")
 	private Set<Proyect> proyects;
-	
+
 	public Set<Task> getTasks() {
 		return tasks;
 	}
@@ -89,5 +89,4 @@ public class User extends GenericObject{
 		this.email = email;
 	}
 
-	
 }

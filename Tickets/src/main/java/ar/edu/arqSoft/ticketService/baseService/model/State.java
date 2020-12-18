@@ -13,15 +13,21 @@ import javax.validation.constraints.Size;
 import ar.edu.arqSoft.ticketService.common.model.GenericObject;
 
 @Entity
-@Table(name="STATE")
-public class State extends GenericObject{
+@Table(name = "STATE")
+public class State extends GenericObject {
+
+	@NotNull
+	@Size(min = 1, max = 250)
+	@Column(name = "STATE")
+	private String name;
 	
 	@NotNull
-	@Size(min=1, max=250)
-	@Column (name="STATE")
-	private String name;
+	@Size(min = 1, max = 250)
+	@Column(name = "description")
+	private String description;
+	
 
-	@OneToMany (targetEntity=User.class, mappedBy="Task", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "state", fetch = FetchType.LAZY)
 	private Set<Task> tasks;
 
 	public String getName() {
@@ -32,6 +38,13 @@ public class State extends GenericObject{
 		this.name = name;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public Set<Task> getTasks() {
 		return tasks;
@@ -40,6 +53,5 @@ public class State extends GenericObject{
 	public void setTasks(Set<Task> tasks) {
 		this.tasks = tasks;
 	}
-	
-	
+
 }
