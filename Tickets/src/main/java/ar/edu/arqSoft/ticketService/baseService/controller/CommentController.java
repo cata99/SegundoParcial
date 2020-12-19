@@ -15,7 +15,6 @@ import org.springframework.web.server.ResponseStatusException;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentTaskRequestDto;
-import ar.edu.arqSoft.ticketService.baseService.dto.CommentTaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.services.CommentService;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
@@ -57,20 +56,13 @@ public class CommentController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/getbyTask", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public @ResponseBody List<CommentTaskResponseDto> getByTask(@RequestBody  CommentTaskRequestDto request) {
-		try {
+	public @ResponseBody List<CommentResponseDto> getByTask(@RequestBody  CommentTaskRequestDto request) {
 		
-			CommentTaskResponseDto dto = (CommentTaskResponseDto) commentService.getAllByTask(request);
-			return (List<CommentTaskResponseDto>) dto;
+		CommentResponseDto dto = (CommentResponseDto) commentService.getAllByTask(request);
+		return (List<CommentResponseDto>) dto;
 		
-		} catch (EntityNotFoundException e) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film Not Found", e);
-		} catch (BadRequestException e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
 		}
-	}
 	}
 	 
 	
 	
-}

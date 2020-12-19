@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.arqSoft.ticketService.baseService.dao.TaskDao;
 import ar.edu.arqSoft.ticketService.baseService.model.Task;
+import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -26,7 +27,7 @@ public class TaskDaoTest{
 	private TaskDao taskDao;
 	
 	@Test
-	public void testRegister() {
+	public void testRegister() throws BadRequestException {
 
 		logger.info("Test de Registro de task 1");
 		Task task = new Task();

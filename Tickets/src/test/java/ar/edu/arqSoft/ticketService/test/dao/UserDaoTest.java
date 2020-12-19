@@ -34,8 +34,7 @@ public class UserDaoTest{
 		socio.setName("Pedro");
 		socio.setLastName("lopez");
 		socio.setEmail("hola@");
-		socio.setUserName("Pepe99");
-		socio.setPassword("1234");
+
 
 		userDao.insert(socio);
 		Assert.assertNotNull(socio.getId());

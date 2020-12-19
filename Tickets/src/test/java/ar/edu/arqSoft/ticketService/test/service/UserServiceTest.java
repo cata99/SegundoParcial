@@ -27,9 +27,8 @@ public class UserServiceTest{
 		request.setName("hola");
 		request.setEmail("hola@");
 		request.setLastName("hi");
-		request.setUserName("hola99");
 		
-		UserResponseDto response = userService.InsertUser(request);
+		UserResponseDto response = userService.insertUser(request);
 		
 		Assert.assertNotNull(response.getName());
 		return;

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.arqSoft.ticketService.baseService.dao.CommentDao;
 import ar.edu.arqSoft.ticketService.baseService.model.Comment;
+import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -25,12 +26,11 @@ public class CommentDaoTest{
 	private CommentDao commentDao;
 
 	@Test
-	public void testRegister() {
+	public void testRegister() throws BadRequestException {
 
 		logger.info("Test de Registro de comentario 1");
 		Comment comment = new Comment();
 		comment.setDescription("Hola Como estas");
-		comment.setState(true);
 		
 		commentDao.insert(comment);
 		Assert.assertNotNull(comment.getId());

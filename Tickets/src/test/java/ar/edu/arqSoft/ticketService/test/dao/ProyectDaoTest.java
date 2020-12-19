@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.arqSoft.ticketService.baseService.dao.ProyectDao;
 import ar.edu.arqSoft.ticketService.baseService.model.Proyect;
-
+import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -26,7 +26,7 @@ private static final Logger logger = LogManager.getLogger(ProyectDaoTest.class);
 	private ProyectDao proyectDao;
 	
 	@Test
-	public void testRegister() {
+	public void testRegister() throws BadRequestException {
 
 		logger.info("Test de Registro de proyecto 1");
 		Proyect proyect = new Proyect();

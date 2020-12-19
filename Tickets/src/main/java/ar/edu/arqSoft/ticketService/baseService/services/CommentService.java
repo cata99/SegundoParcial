@@ -14,7 +14,6 @@ import ar.edu.arqSoft.ticketService.baseService.dao.CommentDao;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentTaskRequestDto;
-import ar.edu.arqSoft.ticketService.baseService.dto.CommentTaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.Comment;
 
 
@@ -51,11 +50,11 @@ public class CommentService {
 		return response;
 	}
 	
-	public List<CommentTaskResponseDto> getAllByTask(CommentTaskRequestDto req){
+	public List<CommentResponseDto> getAllByTask(CommentTaskRequestDto req){
 		List<Comment> comments = commentDao.getAllByTaskId(req.getIdTask());
-		List<CommentTaskResponseDto> response = new ArrayList<CommentTaskResponseDto>();
+		List<CommentResponseDto> response = new ArrayList<CommentResponseDto>();
 		for (Comment comment : comments) {
-			response.add((CommentTaskResponseDto) new ModelDtoConverter().convertToDto(comment, new CommentTaskResponseDto()));
+			response.add((CommentResponseDto) new ModelDtoConverter().convertToDto(comment, new CommentResponseDto()));
 		}
 		return response;
 	}

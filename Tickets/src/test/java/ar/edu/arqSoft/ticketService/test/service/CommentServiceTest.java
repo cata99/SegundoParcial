@@ -26,7 +26,6 @@ public class CommentServiceTest{
 		
 		CommentRequestDto request = new CommentRequestDto();
 		request.setDescription("Description comment");
-		request.setState(true);
 		
 		CommentResponseDto response = commentService.insertComment(request);
 		Assert.assertEquals("Description comment",response.getDescription());
