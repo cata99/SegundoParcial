@@ -29,7 +29,7 @@ public class UserController {
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public @ResponseBody UserResponseDto register(@RequestBody UserRequestDto request) {
+	public @ResponseBody UserResponseDto Register(@RequestBody UserRequestDto request) {
 		try {
 			UserResponseDto dto = (UserResponseDto) userService.InsertUser(request);
 			return dto;
@@ -39,20 +39,15 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<UserResponseDto> getAllUser() {
+	public @ResponseBody List<UserResponseDto> GetAllUser() {
 		return userService.getAllUser();
 	}
 
-	@RequestMapping(value = "usersFromProyect/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody UserResponseDto getById(@PathVariable("id") Long id) {
-		try {
-			UserResponseDto dto = (UserResponseDto) userService.getUserById(id);
-			return dto;
-		} catch (BadRequestException e) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
-		} catch (EntityNotFoundException e) {
-		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found", e);
+	@RequestMapping(value = "{/name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<UserResponseDto> GetUsersByName(@PathVariable("name") String name)
+			throws EntityNotFoundException, BadRequestException {
+
+		return userService.GetByName(name);
 	}
 
-	}
 }

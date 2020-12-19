@@ -28,7 +28,7 @@ public class StateController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public @ResponseBody List<StateResponseDto> getbyName(@PathVariable("id") Long id) {
+	public @ResponseBody List<StateResponseDto> GetById(@PathVariable("id") Long id) {
 		try {
 			StateResponseDto dto = (StateResponseDto) stateService.getStateById(id);
 			return (List<StateResponseDto>) dto;
@@ -40,7 +40,7 @@ public class StateController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody List<StateResponseDto> getAllState() {
+	public @ResponseBody List<StateResponseDto> GetAllState() {
 		return stateService.getAllState();
 	}
 

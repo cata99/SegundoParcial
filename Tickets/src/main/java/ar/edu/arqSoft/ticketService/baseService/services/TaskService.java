@@ -2,23 +2,21 @@ package ar.edu.arqSoft.ticketService.baseService.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.edu.arqSoft.ticketService.baseService.dao.CommentDao;
-import ar.edu.arqSoft.ticketService.baseService.dao.ProyectDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.StateDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.TaskDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.UserDao;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignStateTaskRequestDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignStateTaskResponseDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserTaskRequestDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserTaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskResponseDto;
-import ar.edu.arqSoft.ticketService.baseService.model.Comment;
-import ar.edu.arqSoft.ticketService.baseService.model.Proyect;
 import ar.edu.arqSoft.ticketService.baseService.model.Task;
-import ar.edu.arqSoft.ticketService.baseService.model.User;
 import ar.edu.arqSoft.ticketService.common.dto.*;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
@@ -30,109 +28,50 @@ public class TaskService{
 	@Autowired
 	private TaskDao taskDao;
 	@Autowired
-	private ProyectDao proyectDao;
-	@Autowired
 	private UserDao userDao;
 	@Autowired
 	private StateDao stateDao;
-	@Autowired
-	private CommentDao commentDao;
 	
 	public TaskResponseDto insertTask (TaskRequestDto request) throws BadRequestException, EntityNotFoundException{
 		
-		Task task = new Task();
-		
-		task.setName(request.getName());
-		task.setDescription(request.getDescription());
-		task.setProyect(proyectDao.load(request.getIdProyect()));
-		task.setState(stateDao.load(request.getIdState()));
-		task.setUser(userDao.load(request.getIdUser()));
+		Task task = (Task) new ModelDtoConverter().convertToEntity(new Task(), request);
 		
 		try {
 			taskDao.insert(task);
 		} catch (BadRequestException e ){
 			throw new BadRequestException();
 		}
+		TaskResponseDto response = (TaskResponseDto) new ModelDtoConverter().convertToDto(task, new TaskResponseDto());
 		
-		
-		TaskResponseDto response = new TaskResponseDto();
-		
-		response.setId(task.getId());
-		response.setName(task.getName());
-		response.setDescription(task.getDescription());
-		response.setUserName(task.getUser().getName());
-		response.setUserLastname(task.getUser().getLastName());
-		response.setIdUser(task.getUser().getId());
-		response.setIdProyect(task.getProyect().getId());
-		response.setProyectName(task.getProyect().getName());
-		response.setIdState(task.getState().getId());
-		response.setStateName(task.getState().getName());
-
-		Comment comment= new Comment();
-		comment.setDescription("Se creo una nueva tarea");
-		comment.setTask(task);
-		commentDao.insert(comment);
 		
 		return response;	
 			
 	}
 	
-	public TaskResponseDto changeState(TaskRequestDto request, Long id ) throws BadRequestException, EntityNotFoundException
+	public AssignStateTaskResponseDto changeState(AssignStateTaskRequestDto request ) throws BadRequestException, EntityNotFoundException
 	{
+		if (request.getIdState() <= 0 || request.getIdTask() <=0 )
+			throw new BadRequestException();
+		Task task= taskDao.load(request.getIdTask());
+		task.setState(stateDao.load(request.getIdState()));
 		
-		Task task = taskDao.load(request.getId());
-		
-		task.setState(stateDao.load(id));
-		
-		taskDao.update(task);
-		
-		Comment comment= new Comment();
-		
-		comment.setDescription("Se cambio el estado de la tarea");
-		comment.setTask(task);
-		
-		commentDao.insert(comment);
-		
-		TaskResponseDto response = new TaskResponseDto();
-		
-		response = (TaskResponseDto) new ModelDtoConverter().convertToDto(task,new TaskResponseDto());
+		AssignStateTaskResponseDto response= new AssignStateTaskResponseDto();
+		response = (AssignStateTaskResponseDto) new ModelDtoConverter().convertToDto(task,new AssignStateTaskResponseDto());
 		
 		return response;
-		
 	}
 	
-	public TaskResponseDto addUser(TaskRequestDto req) throws BadRequestException, EntityNotFoundException
+	public AssignUserTaskResponseDto addUser(AssignUserTaskRequestDto request) throws BadRequestException, EntityNotFoundException
 	{
-		Task task = taskDao.load(req.getId());
-		
-		if (req.getIdUser()<=0 )
-		{ 
+		if (request.getIdUser() <= 0 || request.getIdTask() <=0 )
 			throw new BadRequestException();
-		}
-		Proyect project = task.getProyect();
-		Set<User> project_users = project.getUsers();
-		User user = userDao.load(req.getIdUser());
-		if (!project_users.contains(user))
-			throw new BadRequestException();
+		Task task= taskDao.load(request.getIdTask());
+		task.setUsers(userDao.load(request.getIdUser()));
 		
-		task.setUser(userDao.load(req.getIdUser()));
-		
-		taskDao.update(task);
-		
-		Comment comment= new Comment();
-		
-		comment.setDescription("Se agrego un nuevo usuario");
-		comment.setUser(userDao.load(null));
-		comment.setTask(taskDao.load(req.getId()));
-		
-		commentDao.insert(comment);
-		
-		TaskResponseDto response = new TaskResponseDto();
-		
-		response = (TaskResponseDto) new ModelDtoConverter().convertToDto(task,new TaskResponseDto());
+		AssignUserTaskResponseDto response = new AssignUserTaskResponseDto();
+		response = (AssignUserTaskResponseDto) new ModelDtoConverter().convertToDto(task, new AssignUserTaskResponseDto());
 		
 		return response;
-		
 	}
 	
 	
