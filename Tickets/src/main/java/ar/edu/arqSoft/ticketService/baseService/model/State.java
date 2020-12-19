@@ -18,14 +18,13 @@ public class State extends GenericObject {
 
 	@NotNull
 	@Size(min = 1, max = 250)
-	@Column(name = "STATE")
+	@Column(name = "NAME")
 	private String name;
-	
+
 	@NotNull
 	@Size(min = 1, max = 250)
 	@Column(name = "DESCRIPTION")
 	private String description;
-	
 
 	@OneToMany(mappedBy = "state", fetch = FetchType.LAZY)
 	private Set<Task> tasks;

@@ -26,7 +26,7 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
-	@RequestMapping(value="/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public @ResponseBody CommentResponseDto register(@RequestBody CommentRequestDto request) {
 		try {
@@ -39,30 +39,24 @@ public class CommentController {
 		}
 	}
 
-
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(code = HttpStatus.CREATED)
 	public @ResponseBody List<CommentResponseDto> getAll() {
 		try {
 			List<CommentResponseDto> dto = commentService.getAll();
 			return (List<CommentResponseDto>) dto;
 		} catch (EntityNotFoundException e) {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film Not Found", e);
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Comment Not Found", e);
 		} catch (BadRequestException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/getbyTask", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public @ResponseBody List<CommentResponseDto> getByTask(@RequestBody  CommentTaskRequestDto request) {
-		
+	@RequestMapping(value = "/getbyTask", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody List<CommentResponseDto> getByTask(@RequestBody CommentTaskRequestDto request) {
+
 		CommentResponseDto dto = (CommentResponseDto) commentService.getAllByTask(request);
 		return (List<CommentResponseDto>) dto;
-		
-		}
+
 	}
-	 
-	
-	
+}

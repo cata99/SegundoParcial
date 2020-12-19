@@ -18,6 +18,7 @@ import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserTaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserTaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskResponseDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.UserResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.services.TaskService;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
@@ -67,7 +68,6 @@ public class TaskController{
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);
 			}
 	}
-	
 	
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<TaskResponseDto> getAllTask() {
