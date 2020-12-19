@@ -39,12 +39,12 @@ public class CommentController {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+
 	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public @ResponseBody List<CommentResponseDto> getAll() {
 		try {
-			CommentResponseDto dto = (CommentResponseDto) commentService.getAll();
+			List<CommentResponseDto> dto = commentService.getAll();
 			return (List<CommentResponseDto>) dto;
 		} catch (EntityNotFoundException e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Film Not Found", e);

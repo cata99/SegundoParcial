@@ -27,13 +27,12 @@ public class StateController {
 	@Autowired
 	private StateService stateService;
 
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public @ResponseBody List<StateResponseDto> GetById(@PathVariable("id") Long id) {
+	public @ResponseBody StateResponseDto GetById(@PathVariable("id") Long id) {
 		try {
 			StateResponseDto dto = (StateResponseDto) stateService.getStateById(id);
-			return (List<StateResponseDto>) dto;
+			return dto;
 		} catch (EntityNotFoundException e) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "State Not Found", e);
 		} catch (BadRequestException e) {
@@ -46,7 +45,7 @@ public class StateController {
 		return stateService.getAllState();
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/StatesbyTask",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody StateResponseDto GetStatebyTask(@RequestBody AssignStateTaskRequestDto request) {
 		return stateService.getStateByTask(request);
 	}

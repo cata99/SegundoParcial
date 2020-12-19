@@ -69,12 +69,11 @@ public class ProyectController{
 			}
 	}
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/{name}", method=RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
 	public @ResponseBody List<ProyectResponseDto> getbyName(@PathVariable("name") String name){
 			try {
-				ProyectResponseDto dto =(ProyectResponseDto) proyectService.GetByName(name);		
+				List<ProyectResponseDto> dto = proyectService.GetByName(name);		
 				return (List<ProyectResponseDto>) dto;
 			} catch (EntityNotFoundException e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Proyect Not Found", e);

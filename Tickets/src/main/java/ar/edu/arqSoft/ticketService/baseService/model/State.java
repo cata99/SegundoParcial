@@ -23,7 +23,7 @@ public class State extends GenericObject {
 	
 	@NotNull
 	@Size(min = 1, max = 250)
-	@Column(name = "description")
+	@Column(name = "DESCRIPTION")
 	private String description;
 	
 

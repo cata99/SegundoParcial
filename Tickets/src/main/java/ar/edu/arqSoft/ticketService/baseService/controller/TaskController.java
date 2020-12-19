@@ -69,7 +69,7 @@ public class TaskController{
 	}
 	
 	
-	@RequestMapping(value="/getAllTask", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<TaskResponseDto> getAllTask() {
 		return taskService.getAllTask();
 	}
