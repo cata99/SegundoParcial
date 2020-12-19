@@ -11,14 +11,13 @@ import ar.edu.arqSoft.ticketService.common.dto.ModelDtoConverter;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 import ar.edu.arqSoft.ticketService.baseService.dao.CommentDao;
-import ar.edu.arqSoft.ticketService.baseService.dao.TaskDao;
-import ar.edu.arqSoft.ticketService.baseService.dao.UserDao;
+import ar.edu.arqSoft.ticketService.baseService.dto.CommentRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentTaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentTaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.Comment;
-import ar.edu.arqSoft.ticketService.baseService.model.Task;
-import ar.edu.arqSoft.ticketService.baseService.dto.CommentRequestDto;
+
+
 
 @Service
 @Transactional
@@ -27,10 +26,17 @@ public class CommentService {
 	@Autowired
 	private CommentDao commentDao;
 
-	public CommentResponseDto insertComment(CommentRequestDto request)
-			throws EntityNotFoundException, BadRequestException {
-		return;
-
+	public CommentResponseDto insertComment(CommentRequestDto request) throws EntityNotFoundException, BadRequestException {
+		Comment comment = (Comment) new ModelDtoConverter().convertToEntity(new Comment(), request);
+		
+		try {
+			commentDao.insert(comment);
+		} catch (BadRequestException e) {
+			throw new BadRequestException();
+		}
+		
+		CommentResponseDto response = (CommentResponseDto) new ModelDtoConverter().convertToDto(comment, new CommentResponseDto());
+		return response;
 	}
 
 	public List<CommentResponseDto> getAll() throws EntityNotFoundException, BadRequestException {

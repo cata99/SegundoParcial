@@ -7,6 +7,8 @@ public class CommentRequestDto implements DtoEntity {
 	private String description;
 
 	private Long id;
+	
+	private Long idTask;
 
 	public Long getId() {
 		return id;
@@ -23,5 +25,15 @@ public class CommentRequestDto implements DtoEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Long getIdTask() {
+		return idTask;
+	}
+
+	public void setIdTask(Long idTask) {
+		this.idTask = idTask;
+	}
+	
+	
 
 }

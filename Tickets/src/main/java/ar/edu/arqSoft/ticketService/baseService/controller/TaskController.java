@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignStateTaskRequestDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignStateTaskResponseDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserTaskRequestDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserTaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.services.TaskService;
@@ -26,7 +29,7 @@ public class TaskController{
 	@Autowired
 	private TaskService taskService;
 	
-	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
 		public @ResponseBody TaskResponseDto register(@RequestBody TaskRequestDto request) {
 					try {
@@ -39,11 +42,11 @@ public class TaskController{
 					}
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/changeState", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
-	public @ResponseBody TaskResponseDto changeState(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
+	public @ResponseBody AssignStateTaskResponseDto changeState(@RequestBody AssignStateTaskRequestDto request){
 			try {
-				TaskResponseDto dto =(TaskResponseDto) taskService.changeState(request,id);		
+				AssignStateTaskResponseDto dto =(AssignStateTaskResponseDto) taskService.changeState(request);		
 				return dto;
 			} catch (EntityNotFoundException e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
@@ -52,11 +55,11 @@ public class TaskController{
 			}
 	}
 	
-	@RequestMapping(value="/addUser/{id]}", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/addUser", method=RequestMethod.PUT, produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
-	public @ResponseBody TaskResponseDto addUser(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
+	public @ResponseBody AssignUserTaskResponseDto addUser(@RequestBody AssignUserTaskRequestDto request){
 			try {
-				TaskResponseDto dto =(TaskResponseDto) taskService.addUser(request);		
+				AssignUserTaskResponseDto dto =(AssignUserTaskResponseDto) taskService.addUser(request);		
 				return dto;
 			} catch (EntityNotFoundException e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
@@ -66,7 +69,7 @@ public class TaskController{
 	}
 	
 	
-	@RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/getAllTask", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<TaskResponseDto> getAllTask() {
 		return taskService.getAllTask();
 	}

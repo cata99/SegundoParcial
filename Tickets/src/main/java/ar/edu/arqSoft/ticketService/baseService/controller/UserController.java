@@ -27,11 +27,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public @ResponseBody UserResponseDto Register(@RequestBody UserRequestDto request) {
+	public @ResponseBody UserResponseDto register(@RequestBody UserRequestDto request) {
 		try {
-			UserResponseDto dto = (UserResponseDto) userService.InsertUser(request);
+			UserResponseDto dto = (UserResponseDto) userService.insertUser(request);
 			return dto;
 		} catch (BadRequestException e) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bad Request - ID = 0 o negativo", e);

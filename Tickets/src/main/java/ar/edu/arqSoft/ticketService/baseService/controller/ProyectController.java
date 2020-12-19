@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import ar.edu.arqSoft.ticketService.baseService.dto.ProyectResponseDto;
-import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
-import ar.edu.arqSoft.ticketService.baseService.dto.UserRequestDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignTaskProyectRequestDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignTaskProyectResponseDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserProyectRequestDto;
+import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserProyectResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.ProyectRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.services.ProyectService;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
@@ -28,7 +30,7 @@ public class ProyectController{
 	@Autowired
 	private ProyectService proyectService;
 	
-	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/register",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
 		public @ResponseBody ProyectResponseDto register(@RequestBody ProyectRequestDto request) {
 					try {
@@ -41,11 +43,11 @@ public class ProyectController{
 					}
 	}
 	
-	@RequestMapping(value="/addUser/{id]}", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody ProyectResponseDto addUser(@RequestBody UserRequestDto request, @PathVariable("id") Long id)
+	@RequestMapping(value="/addUser", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody AssignUserProyectResponseDto addUser(@RequestBody AssignUserProyectRequestDto request)
 	{
 		try {
-			ProyectResponseDto dto =(ProyectResponseDto) proyectService.addUser(request, id);		
+			AssignUserProyectResponseDto dto =(AssignUserProyectResponseDto) proyectService.addUser(request);		
 		return dto;
 	} catch (EntityNotFoundException e) {
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);
@@ -54,11 +56,11 @@ public class ProyectController{
 	}}
 	
 	
-	@RequestMapping(value="/addTask/{id]}", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/addTask", method=RequestMethod.POST, produces= MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(code= HttpStatus.CREATED)
-	public @ResponseBody ProyectResponseDto addTask(@RequestBody TaskRequestDto request, @PathVariable("id") Long id){
+	public @ResponseBody AssignTaskProyectResponseDto addTask(@RequestBody AssignTaskProyectRequestDto request){
 			try {
-				ProyectResponseDto dto =(ProyectResponseDto) proyectService.addTask(request, id);		
+				AssignTaskProyectResponseDto dto =(AssignTaskProyectResponseDto) proyectService.addTask(request);		
 				return dto;
 			} catch (EntityNotFoundException e) {
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Task Not Found", e);

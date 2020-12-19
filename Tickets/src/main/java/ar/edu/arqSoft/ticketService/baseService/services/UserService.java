@@ -22,7 +22,7 @@ public class UserService {
 	@Autowired
 	private UserDao userDao;
 
-	public UserResponseDto InsertUser(UserRequestDto request) throws BadRequestException {
+	public UserResponseDto insertUser(UserRequestDto request) throws BadRequestException {
 		User user = (User) new ModelDtoConverter().convertToEntity(new User(), request);
 		try {
 			userDao.insert(user);
