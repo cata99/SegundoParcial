@@ -14,6 +14,7 @@ import ar.edu.arqSoft.ticketService.common.dao.*;
 @Repository 
 public class UserDaoImp extends GenericDaoImp<User, Long > implements UserDao{
 
+	@Override
 	public List<User> FindByName (String nombre){
 
 		CriteriaBuilder builder = em.getCriteriaBuilder();

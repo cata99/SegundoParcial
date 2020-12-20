@@ -42,11 +42,11 @@ public class ProyectService {
 
 		Proyect proyect = (Proyect) new ModelDtoConverter().convertToEntity(new Proyect(), request);
 
-		try {
-			proyectDao.insert(proyect);
-		} catch (BadRequestException e) {
-			throw new BadRequestException();
-		}
+	//	try {
+		//	proyectDao.insert(proyect);
+	//	} catch (BadRequestException e) {
+	//		throw new BadRequestException();
+	//	}
 
 		ProyectResponseDto response = (ProyectResponseDto) new ModelDtoConverter().convertToDto(proyect,
 				new ProyectResponseDto());

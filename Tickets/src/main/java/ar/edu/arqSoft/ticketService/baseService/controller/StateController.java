@@ -7,14 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
-
-import ar.edu.arqSoft.ticketService.baseService.dto.AssignStateTaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.StateResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.services.StateService;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
@@ -44,10 +41,6 @@ public class StateController {
 	public @ResponseBody List<StateResponseDto> GetAllState() {
 		return stateService.getAllState();
 	}
-	
-	@RequestMapping(value = "/StatesbyTask",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody StateResponseDto GetStatebyTask(@RequestBody AssignStateTaskRequestDto request) {
-		return stateService.getStateByTask(request);
-	}
+
 
 }

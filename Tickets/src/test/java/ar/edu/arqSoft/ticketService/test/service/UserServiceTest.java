@@ -27,6 +27,7 @@ public class UserServiceTest{
 		request.setName("hola");
 		request.setEmail("hola@");
 		request.setLastName("hi");
+		request.setId((long) 1);
 		
 		UserResponseDto response = userService.insertUser(request);
 		

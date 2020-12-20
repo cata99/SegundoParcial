@@ -5,11 +5,11 @@ INSERT INTO `USER` (`ID`, `EMAIL`, `LASTNAME`, `NAME`) VALUES ('3', 'menelangelo
 INSERT INTO `PROYECT` (`ID`, `DESCRPTION`, `NAME`, `START_DATE`, `STATE_PROYECT`) VALUES ('1', 'This project is about this', 'Project_1', '2020-04-19 03:55:03', '1');
 INSERT INTO `PROYECT` (`ID`, `DESCRPTION`, `NAME`, `START_DATE`, `STATE_PROYECT`) VALUES ('2', 'This project is about that', 'Project_2', '2019-11-03 12:55:03', '2');
 
-INSERT INTO `PROYECT_USER` (`Proyect_ID`, `users_ID`) VALUES ('1', '1');
-INSERT INTO `PROYECT_USER` (`Proyect_ID`, `users_ID`) VALUES ('1', '2');
-INSERT INTO `PROYECT_USER` (`Proyect_ID`, `users_ID`) VALUES ('1', '3');
-INSERT INTO `PROYECT_USER` (`Proyect_ID`, `users_ID`) VALUES ('2', '1');
-INSERT INTO `PROYECT_USER` (`Proyect_ID`, `users_ID`) VALUES ('2', '2');
+INSERT INTO `PROYECT_USER` (`proyects_ID`, `users_ID`) VALUES ('1', '1');
+INSERT INTO `PROYECT_USER` (`proyects_ID`, `users_ID`) VALUES ('1', '2');
+INSERT INTO `PROYECT_USER` (`proyects_IDproyect_user`, `users_ID`) VALUES ('1', '3');
+INSERT INTO `PROYECT_USER` (`proyects_ID`, `users_ID`) VALUES ('2', '1');
+INSERT INTO `PROYECT_USER` (`proyects_ID`, `users_ID`) VALUES ('2', '2');
 
 INSERT INTO `STATE` (`ID`, `NAME`, `DESCRIPTION`) VALUES ('1', 'Stand-by','Descripcion_1');
 INSERT INTO `STATE` (`ID`, `NAME`, `DESCRIPTION`) VALUES ('2', 'Done','Descripcion_2');

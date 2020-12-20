@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.arqSoft.ticketService.baseService.dao.StateDao;
-import ar.edu.arqSoft.ticketService.baseService.dto.AssignStateTaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.StateResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.model.State;
 import ar.edu.arqSoft.ticketService.common.dto.ModelDtoConverter;
@@ -21,7 +20,7 @@ public class StateService {
 
 	@Autowired
 	private StateDao stateDao;
-
+	
 	public StateResponseDto getStateById(Long id) throws EntityNotFoundException, BadRequestException {
 		if (id <= 0) {
 			throw new BadRequestException();
@@ -44,19 +43,5 @@ public class StateService {
 
 		return response;
 	}
-	
-	
-	public StateResponseDto getStateByTask(AssignStateTaskRequestDto req){
-		State state = stateDao.getStateByTaskId(req.getIdTask());
-		StateResponseDto response = new StateResponseDto();
-
-		response =((StateResponseDto) new ModelDtoConverter().convertToDto(state, new StateResponseDto()));
-		
-		return response;
-	}
-	
-	
-	
-	
 	
 }
