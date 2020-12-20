@@ -14,11 +14,8 @@ public class TaskResponseDto implements DtoEntity{
 	private String name;
 	
 	private String description;
-	
-	private Long idState;
-	
-	private Long idProyect;
 
+	@JsonProperty("ID")
 	public Long getId() {
 		return id;
 	}
@@ -27,6 +24,7 @@ public class TaskResponseDto implements DtoEntity{
 		this.id = id;
 	}
 
+	@JsonProperty("NAME")
 	public String getName() {
 		return name;
 	}
@@ -35,30 +33,13 @@ public class TaskResponseDto implements DtoEntity{
 		this.name = name;
 	}
 
+	@JsonProperty("DESCRIPCION")
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	@JsonProperty("STATE_ID")
-	public Long getIdState() {
-		return idState;
-	}
-
-	public void setIdState(Long idState) {
-		this.idState = idState;
-	}
-
-	@JsonProperty("PROYECT_ID")
-	public Long getIdProyect() {
-		return idProyect;
-	}
-
-	public void setIdProyect(Long idProyect) {
-		this.idProyect = idProyect;
 	}
 	
 }

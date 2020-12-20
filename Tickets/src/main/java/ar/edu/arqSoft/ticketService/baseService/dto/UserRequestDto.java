@@ -1,5 +1,8 @@
 package ar.edu.arqSoft.ticketService.baseService.dto;
 
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import ar.edu.arqSoft.ticketService.common.dto.*;
 public class UserRequestDto implements DtoEntity{
 	
@@ -11,22 +14,25 @@ public class UserRequestDto implements DtoEntity{
 	
 	private String email;
 	
+	
 	public Long getId() {
 		return id;
 	}
 
+	@JsonProperty("ID")
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	public String getName() {
 		return name;
 	}
+	
 
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
 	public String getLastName() {
 		return lastName;
 	}
@@ -35,10 +41,12 @@ public class UserRequestDto implements DtoEntity{
 		this.lastName = lastName;
 	}
 
+	
 	public String getEmail() {
 		return email;
 	}
 
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}

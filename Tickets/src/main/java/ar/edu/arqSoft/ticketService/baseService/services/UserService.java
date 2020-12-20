@@ -23,14 +23,21 @@ public class UserService {
 	private UserDao userDao;
 
 	public UserResponseDto insertUser(UserRequestDto request) throws BadRequestException {
-		User user = (User) new ModelDtoConverter().convertToEntity(new User(), request);
-		try {
-			userDao.insert(user);
-		} catch (BadRequestException e) {
-			throw new BadRequestException();
-		}
-		UserResponseDto response = (UserResponseDto) new ModelDtoConverter().convertToDto(user, new UserResponseDto());
-		return response;
+		User user = new User();
+		user.setId(request.getId());
+		user.setName(request.getName());
+		user.setLastName(request.getLastName());
+		user.setEmail(request.getEmail());
+		
+		userDao.insert(user);
+		UserResponseDto response = new UserResponseDto();
+		
+		response.setName(user.getName());
+		response.setLastName(user.getLastName());
+		response.setEmail(user.getEmail());
+		response.setId(user.getId());
+		
+		return response ;
 	}
 
 	public List<UserResponseDto> getAllUser() {

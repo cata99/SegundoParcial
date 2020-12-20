@@ -1,5 +1,7 @@
 package ar.edu.arqSoft.ticketService.baseService.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import ar.edu.arqSoft.ticketService.common.dto.*;
 
 public class UserResponseDto implements DtoEntity{
@@ -12,6 +14,7 @@ public class UserResponseDto implements DtoEntity{
 	
 	private Long id;
 
+	@JsonProperty("NAME")
 	public String getName() {
 		return name;
 	}
@@ -20,6 +23,7 @@ public class UserResponseDto implements DtoEntity{
 		this.name = name;
 	}
 
+	@JsonProperty("LASTNAME")
 	public String getLastName() {
 		return lastName;
 	}
@@ -28,6 +32,7 @@ public class UserResponseDto implements DtoEntity{
 		this.lastName = lastName;
 	}
 
+	@JsonProperty("EMAIL")
 	public String getEmail() {
 		return email;
 	}
@@ -36,6 +41,7 @@ public class UserResponseDto implements DtoEntity{
 		this.email = email;
 	}
 
+	@JsonProperty("ID")
 	public Long getId() {
 		return id;
 	}
