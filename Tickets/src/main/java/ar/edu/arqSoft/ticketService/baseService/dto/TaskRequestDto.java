@@ -5,9 +5,9 @@ import ar.edu.arqSoft.ticketService.common.dto.*;
 
 public class TaskRequestDto implements DtoEntity {
 
-	private State state;
-
 	private String name;
+	
+	private State state;
 
 	private String description;
 

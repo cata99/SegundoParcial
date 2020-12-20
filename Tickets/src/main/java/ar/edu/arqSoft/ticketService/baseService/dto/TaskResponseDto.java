@@ -1,7 +1,8 @@
 package ar.edu.arqSoft.ticketService.baseService.dto;
 
 
-import ar.edu.arqSoft.ticketService.baseService.model.State;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import ar.edu.arqSoft.ticketService.common.dto.*;
 
 
@@ -14,7 +15,9 @@ public class TaskResponseDto implements DtoEntity{
 	
 	private String description;
 	
-	private State state;
+	private Long idState;
+	
+	private Long idProyect;
 
 	public Long getId() {
 		return id;
@@ -40,14 +43,22 @@ public class TaskResponseDto implements DtoEntity{
 		this.description = description;
 	}
 
-	public State getState() {
-		return state;
+	@JsonProperty("STATE_ID")
+	public Long getIdState() {
+		return idState;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setIdState(Long idState) {
+		this.idState = idState;
 	}
-	
-	
+
+	@JsonProperty("PROYECT_ID")
+	public Long getIdProyect() {
+		return idProyect;
+	}
+
+	public void setIdProyect(Long idProyect) {
+		this.idProyect = idProyect;
+	}
 	
 }

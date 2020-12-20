@@ -18,7 +18,6 @@ import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserTaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserTaskResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.TaskResponseDto;
-import ar.edu.arqSoft.ticketService.baseService.dto.UserResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.services.TaskService;
 import ar.edu.arqSoft.ticketService.common.exception.BadRequestException;
 import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
