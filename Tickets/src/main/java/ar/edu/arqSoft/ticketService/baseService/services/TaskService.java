@@ -46,7 +46,7 @@ public class TaskService{
 		task.setProyect(proyectDao.load(request.getState()));
 
 		
-		//taskDao.insert(task);
+		taskDao.insert(task);
 		TaskResponseDto response = (TaskResponseDto) new ModelDtoConverter().convertToDto(task, new TaskResponseDto());
 		
 		response.setId(task.getId());

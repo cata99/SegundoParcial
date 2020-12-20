@@ -23,6 +23,7 @@ public class UserService {
 	private UserDao userDao;
 
 	public UserResponseDto insertUser(UserRequestDto request) throws BadRequestException {
+		
 		User user = new User();
 		user.setId(request.getId());
 		user.setName(request.getName());
