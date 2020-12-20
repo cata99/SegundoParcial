@@ -46,6 +46,7 @@ public class UserService {
 	}
 
 	public List<UserResponseDto> GetByName(String name) throws EntityNotFoundException, BadRequestException {
+		
 		List<User> users = userDao.FindByName(name);
 
 		List<UserResponseDto> response = new ArrayList<UserResponseDto>();

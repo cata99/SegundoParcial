@@ -43,7 +43,7 @@ public class UserController {
 		return userService.getAllUser();
 	}
 
-	@RequestMapping(value = "{/name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/{name}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<UserResponseDto> GetUsersByName(@PathVariable("name") String name)
 			throws EntityNotFoundException, BadRequestException {
 
