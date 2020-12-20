@@ -1,5 +1,7 @@
 package ar.edu.arqSoft.ticketService.baseService.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import ar.edu.arqSoft.ticketService.common.dto.*;
 
 public class CommentResponseDto implements DtoEntity{
@@ -8,6 +10,7 @@ public class CommentResponseDto implements DtoEntity{
 	
 	private Long id;
 
+	@JsonProperty("ID")
 	public Long getId() {
 		return id;
 	}
@@ -16,6 +19,7 @@ public class CommentResponseDto implements DtoEntity{
 		this.id = id;
 	}
 
+	@JsonProperty("DESCRIPTION")
 	public String getDescription() {
 		return description;
 	}
