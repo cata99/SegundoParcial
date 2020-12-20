@@ -24,8 +24,8 @@ import ar.edu.arqSoft.ticketService.common.exception.EntityNotFoundException;
 
 @Service
 @Transactional
-public class TaskService{
-	
+public class TaskService {
+
 	@Autowired
 	private TaskDao taskDao;
 	@Autowired
@@ -34,63 +34,62 @@ public class TaskService{
 	private StateDao stateDao;
 	@Autowired
 	private ProyectDao proyectDao;
-	
-	public TaskResponseDto insertTask (TaskRequestDto request) throws BadRequestException, EntityNotFoundException{
-		
+
+	public TaskResponseDto insertTask(TaskRequestDto request) throws BadRequestException, EntityNotFoundException {
+
 		Task task = new Task();
-		
+
 		task.setId(request.getId());
 		task.setName(request.getName());
 		task.setDescription(request.getDescription());
 		task.setState(stateDao.load(request.getState()));
-		task.setProyect(proyectDao.load(request.getState()));
+		task.setProyect(proyectDao.load(request.getProyect()));
 
-		
 		taskDao.insert(task);
 		TaskResponseDto response = new TaskResponseDto();
-		
+
 		response.setId(task.getId());
 		response.setName(task.getName());
 		response.setDescription(task.getDescription());
 
-		
-		return response;	
-			
+		return response;
 	}
-	
-	public AssignStateTaskResponseDto changeState(AssignStateTaskRequestDto request ) throws BadRequestException, EntityNotFoundException
-	{
-		if (request.getIdState() <= 0 || request.getIdTask() <=0 )
+
+	public AssignStateTaskResponseDto changeState(AssignStateTaskRequestDto request)
+			throws BadRequestException, EntityNotFoundException {
+		if (request.getIdState() <= 0 || request.getIdTask() <= 0)
 			throw new BadRequestException();
-		Task task= taskDao.load(request.getIdTask());
+		
+		Task task = taskDao.load(request.getIdTask());
 		task.setState(stateDao.load(request.getIdState()));
-		
-		AssignStateTaskResponseDto response= new AssignStateTaskResponseDto();
-		response = (AssignStateTaskResponseDto) new ModelDtoConverter().convertToDto(task,new AssignStateTaskResponseDto());
-		
+
+		AssignStateTaskResponseDto response = new AssignStateTaskResponseDto();
+		response = (AssignStateTaskResponseDto) new ModelDtoConverter().convertToDto(task,
+				new AssignStateTaskResponseDto());
+
 		return response;
 	}
-	
-	public AssignUserTaskResponseDto addUser(AssignUserTaskRequestDto request) throws BadRequestException, EntityNotFoundException
-	{
-		if (request.getIdUser() <= 0 || request.getIdTask() <=0 )
+
+	public AssignUserTaskResponseDto addUser(AssignUserTaskRequestDto request)
+			throws BadRequestException, EntityNotFoundException {
+		if (request.getIdUser() <= 0 || request.getIdTask() <= 0)
 			throw new BadRequestException();
-		Task task= taskDao.load(request.getIdTask());
+		Task task = taskDao.load(request.getIdTask());
 		task.setUsers(userDao.load(request.getIdUser()));
-		
+
 		AssignUserTaskResponseDto response = new AssignUserTaskResponseDto();
-		response = (AssignUserTaskResponseDto) new ModelDtoConverter().convertToDto(task, new AssignUserTaskResponseDto());
-		
+		response = (AssignUserTaskResponseDto) new ModelDtoConverter().convertToDto(task,
+				new AssignUserTaskResponseDto());
+
 		return response;
 	}
-	
-	
+
 	public List<TaskResponseDto> getAllTask() {
 		List<Task> tasks = taskDao.getAll();
-		
+
 		List<TaskResponseDto> response = new ArrayList<TaskResponseDto>();
-		for(Task task: tasks) {
-		response.add((TaskResponseDto) new ModelDtoConverter().convertToDto(task,new TaskResponseDto()));
+		for (Task task : tasks) {
+			response.add((TaskResponseDto) new ModelDtoConverter().convertToDto(task, new TaskResponseDto()));
 		}
 		return response;
 	}

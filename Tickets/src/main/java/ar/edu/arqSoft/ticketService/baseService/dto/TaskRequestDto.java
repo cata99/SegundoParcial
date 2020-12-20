@@ -56,12 +56,12 @@ public class TaskRequestDto implements DtoEntity {
 		this.name = name;
 	}
 
-	@JsonProperty("DESCRPCION")
+	@JsonProperty("DESCRIPCION")
 	public String getDescription() {
 		return description;
 	}
 
-	@JsonProperty("DESCRPCION")
+	@JsonProperty("DESCRIPCION")
 	public void setDescription(String description) {
 		this.description = description;
 	}

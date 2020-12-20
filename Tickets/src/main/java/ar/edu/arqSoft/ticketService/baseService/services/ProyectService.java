@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.arqSoft.ticketService.baseService.dao.ProyectDao;
-import ar.edu.arqSoft.ticketService.baseService.dao.TaskDao;
 import ar.edu.arqSoft.ticketService.baseService.dao.UserDao;
-import ar.edu.arqSoft.ticketService.baseService.dto.AssignTaskProyectRequestDto;
-import ar.edu.arqSoft.ticketService.baseService.dto.AssignTaskProyectResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserProyectRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.AssignUserProyectResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.ProyectRequestDto;
@@ -32,9 +29,6 @@ public class ProyectService {
 	@Autowired
 	private UserDao userDao;
 
-	@Autowired
-	private TaskDao taskDao;
-	
 	public static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	public ProyectResponseDto insertProyect(ProyectRequestDto request)
@@ -42,11 +36,11 @@ public class ProyectService {
 
 		Proyect proyect = (Proyect) new ModelDtoConverter().convertToEntity(new Proyect(), request);
 
-	//	try {
-		//	proyectDao.insert(proyect);
-	//	} catch (BadRequestException e) {
-	//		throw new BadRequestException();
-	//	}
+		try {
+			proyectDao.insert(proyect);
+		} catch (BadRequestException e) {
+			throw new BadRequestException();
+		}
 
 		ProyectResponseDto response = (ProyectResponseDto) new ModelDtoConverter().convertToDto(proyect,
 				new ProyectResponseDto());
@@ -96,22 +90,4 @@ public class ProyectService {
 
 		return response;
 	}
-
-	public AssignTaskProyectResponseDto addTask(AssignTaskProyectRequestDto req)
-			throws BadRequestException, EntityNotFoundException {
-
-		if (req.getIdProyect() <= 0 || req.getIdTask() <= 0) {
-			throw new BadRequestException();
-		}
-
-		Proyect proyect = proyectDao.load(req.getIdProyect());
-		proyect.setTasks(taskDao.load(req.getIdTask()));
-
-		AssignTaskProyectResponseDto response = new AssignTaskProyectResponseDto();
-		response = (AssignTaskProyectResponseDto) new ModelDtoConverter().convertToDto(proyect,
-				new AssignTaskProyectResponseDto());
-
-		return response;
-	}
-
 }

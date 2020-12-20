@@ -18,35 +18,34 @@ import ar.edu.arqSoft.ticketService.baseService.dto.CommentResponseDto;
 import ar.edu.arqSoft.ticketService.baseService.dto.CommentTaskRequestDto;
 import ar.edu.arqSoft.ticketService.baseService.model.Comment;
 
-
-
 @Service
 @Transactional
 public class CommentService {
 
 	@Autowired
 	private CommentDao commentDao;
-	
+
 	@Autowired
 	private TaskDao taskDao;
-	
+
 	@Autowired
 	private UserDao userDao;
 
-	public CommentResponseDto insertComment(CommentRequestDto request) throws EntityNotFoundException, BadRequestException {
-		
+	public CommentResponseDto insertComment(CommentRequestDto request)
+			throws EntityNotFoundException, BadRequestException {
+
 		Comment comment = new Comment();
 		comment.setId(request.getId());
 		comment.setDescription(request.getDescription());
 		comment.setTask(taskDao.load(request.getIdTask()));
 		comment.setUser(userDao.load(request.getIdUser()));
-		
+
 		commentDao.insert(comment);
 		CommentResponseDto response = new CommentResponseDto();
-		
+
 		response.setDescription(comment.getDescription());
 		response.setId(comment.getId());
-		
+
 		return response;
 	}
 
@@ -61,8 +60,8 @@ public class CommentService {
 		}
 		return response;
 	}
-	
-	public List<CommentResponseDto> getAllByTask(CommentTaskRequestDto req){
+
+	public List<CommentResponseDto> getAllByTask(CommentTaskRequestDto req) {
 		List<Comment> comments = commentDao.getAllByTaskId(req.getIdTask());
 		List<CommentResponseDto> response = new ArrayList<CommentResponseDto>();
 		for (Comment comment : comments) {
@@ -70,5 +69,5 @@ public class CommentService {
 		}
 		return response;
 	}
-	
+
 }

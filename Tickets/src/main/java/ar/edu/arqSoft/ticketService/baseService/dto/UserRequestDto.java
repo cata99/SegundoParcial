@@ -14,7 +14,7 @@ public class UserRequestDto implements DtoEntity{
 	
 	private String email;
 	
-	
+	@JsonProperty("ID")
 	public Long getId() {
 		return id;
 	}
@@ -24,29 +24,33 @@ public class UserRequestDto implements DtoEntity{
 		this.id = id;
 	}
 	
+	@JsonProperty("NAME")
 	public String getName() {
 		return name;
 	}
 	
 
+	@JsonProperty("NAME")
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	@JsonProperty("LASTNAME")
 	public String getLastName() {
 		return lastName;
 	}
 
+	@JsonProperty("LASTNAME")
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	
+	@JsonProperty("EMAIL")
 	public String getEmail() {
 		return email;
 	}
 
-	
+	@JsonProperty("EMAIL")
 	public void setEmail(String email) {
 		this.email = email;
 	}
