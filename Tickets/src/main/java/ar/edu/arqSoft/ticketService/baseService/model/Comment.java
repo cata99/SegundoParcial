@@ -25,7 +25,7 @@ public class Comment extends GenericObject {
 	private Task task;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable= true)
+	@JoinColumn(name = "USER_ID", referencedColumnName = "ID")
 	private User user;
 
 	public Task getTask() {

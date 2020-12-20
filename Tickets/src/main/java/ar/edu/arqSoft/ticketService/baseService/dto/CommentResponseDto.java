@@ -14,7 +14,8 @@ public class CommentResponseDto implements DtoEntity{
 	public Long getId() {
 		return id;
 	}
-
+	
+	@JsonProperty("ID")
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -24,10 +25,9 @@ public class CommentResponseDto implements DtoEntity{
 		return description;
 	}
 
+	@JsonProperty("DESCRIPTION")
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-
 	
 }

@@ -34,6 +34,7 @@ public class CommentService {
 	private UserDao userDao;
 
 	public CommentResponseDto insertComment(CommentRequestDto request) throws EntityNotFoundException, BadRequestException {
+		
 		Comment comment = new Comment();
 		comment.setId(request.getId());
 		comment.setDescription(request.getDescription());
@@ -41,8 +42,8 @@ public class CommentService {
 		comment.setUser(userDao.load(request.getIdUser()));
 		
 		commentDao.insert(comment);
+		CommentResponseDto response = new CommentResponseDto();
 		
-		CommentResponseDto response = new CommentResponseDto(); 
 		response.setDescription(comment.getDescription());
 		response.setId(comment.getId());
 		

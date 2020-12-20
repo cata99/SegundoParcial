@@ -47,7 +47,7 @@ public class TaskService{
 
 		
 		taskDao.insert(task);
-		TaskResponseDto response = (TaskResponseDto) new ModelDtoConverter().convertToDto(task, new TaskResponseDto());
+		TaskResponseDto response = new TaskResponseDto();
 		
 		response.setId(task.getId());
 		response.setName(task.getName());

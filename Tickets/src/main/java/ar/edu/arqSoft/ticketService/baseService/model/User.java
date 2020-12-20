@@ -2,6 +2,7 @@ package ar.edu.arqSoft.ticketService.baseService.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,7 +36,7 @@ public class User extends GenericObject {
 	@ManyToMany(mappedBy = "users")
 	private Set<Task> tasks;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@OneToMany(cascade={CascadeType.ALL},mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<Comment> comments;
 
 	@ManyToMany(mappedBy = "users")

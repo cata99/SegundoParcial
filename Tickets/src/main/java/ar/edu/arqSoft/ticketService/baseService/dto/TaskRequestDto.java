@@ -16,6 +16,7 @@ public class TaskRequestDto implements DtoEntity {
 	
 	private Long proyect;
 
+	@JsonProperty("STATE_ID")
 	public Long getState() {
 		return state;
 	}
@@ -24,7 +25,8 @@ public class TaskRequestDto implements DtoEntity {
 	public void setState(Long state) {
 		this.state = state;
 	}
-
+	
+	@JsonProperty("PROYECT_ID")
 	public Long getProyect() {
 		return proyect;
 	}
@@ -34,6 +36,7 @@ public class TaskRequestDto implements DtoEntity {
 		this.proyect = proyect;
 	}
 
+	@JsonProperty("ID")
 	public Long getId() {
 		return id;
 	}
@@ -43,6 +46,7 @@ public class TaskRequestDto implements DtoEntity {
 		this.id = id;
 	}
 
+	@JsonProperty("NAME")
 	public String getName() {
 		return name;
 	}
@@ -52,6 +56,7 @@ public class TaskRequestDto implements DtoEntity {
 		this.name = name;
 	}
 
+	@JsonProperty("DESCRPCION")
 	public String getDescription() {
 		return description;
 	}

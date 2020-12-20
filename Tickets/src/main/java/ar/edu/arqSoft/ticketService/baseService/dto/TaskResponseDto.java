@@ -20,6 +20,7 @@ public class TaskResponseDto implements DtoEntity{
 		return id;
 	}
 
+	@JsonProperty("ID")
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -29,6 +30,7 @@ public class TaskResponseDto implements DtoEntity{
 		return name;
 	}
 
+	@JsonProperty("NAME")
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -38,6 +40,7 @@ public class TaskResponseDto implements DtoEntity{
 		return description;
 	}
 
+	@JsonProperty("DESCRIPCION")
 	public void setDescription(String description) {
 		this.description = description;
 	}
