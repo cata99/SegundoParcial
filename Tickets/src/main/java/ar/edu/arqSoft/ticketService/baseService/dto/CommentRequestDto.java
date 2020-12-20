@@ -10,6 +10,16 @@ public class CommentRequestDto implements DtoEntity {
 	
 	private Long idTask;
 
+	private Long idUser;
+	
+	public Long getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(Long idUser) {
+		this.idUser = idUser;
+	}
+
 	public Long getId() {
 		return id;
 	}
